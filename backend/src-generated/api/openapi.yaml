@@ -1,0 +1,1480 @@
+openapi: 3.0.3
+info:
+  description: |
+    API REST para la plataforma de búsqueda inversa de empleo
+    de la Municipalidad de Providencia, Chile.
+
+    ## Roles del sistema
+    - **admin** — Departamento de Empleo Municipal
+    - **talento** — Vecinos/as de Providencia
+    - **empresa** — Empresas empleadoras
+
+    ## Autenticación
+    Todos los endpoints protegidos requieren un token JWT en el header:
+    `Authorization: Bearer <token>`
+  title: ProviEmplea API
+  version: 1.0.0
+servers:
+- description: Servidor de desarrollo
+  url: http://localhost:3000/api/v1
+tags:
+- description: Registro y login de usuarios
+  name: Auth
+- description: "Datos de referencia (rubros, competencias, idiomas, etc.)"
+  name: Catálogos
+- description: Perfil completo del vecino/a (requiere rol talento o admin)
+  name: Talentos
+- description: CV Ciego para empresas (requiere rol empresa o admin)
+  name: Vitrina
+- description: Gestión de perfil empresarial (requiere rol empresa o admin)
+  name: Empresas
+- description: Solicitudes de contacto empresa → talento
+  name: Solicitudes
+- description: Gestión completa del sistema (requiere rol admin)
+  name: Admin
+paths:
+  /auth/login:
+    post:
+      description: Autentica un usuario y devuelve un JWT válido por 24h
+      operationId: authLoginPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_auth_login_post_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Login exitoso
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Credenciles inválidas
+      summary: Login de usuario
+      tags:
+      - Auth
+      x-eov-operation-handler: controllers/AuthController
+  /auth/register/talento:
+    post:
+      description: La cuenta queda en esta Pendiente hasta que un admin la valide
+      operationId: authRegisterTalentoPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_auth_register_talento_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: "Registro exitoso, cuenta pendiente de validación"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Datos inválidos
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: El correo ya está registrado
+      summary: Registro de vecino/talento
+      tags:
+      - Auth
+      x-eov-operation-handler: controllers/AuthController
+  /auth/register/empresa:
+    post:
+      operationId: authRegisterEmpresaPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_auth_register_empresa_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Empresa registrada exitosamente
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Rut o correo ya registrado
+      summary: Registro de empresa
+      tags:
+      - Auth
+      x-eov-operation-handler: controllers/AuthController
+  /catalogos/rubros:
+    get:
+      operationId: catalogosRubrosGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de rubros obtenida exitosamente
+      summary: Lista de rubros de empresa
+      tags:
+      - Catálogos
+      x-eov-operation-handler: controllers/CatlogosController
+  /catalogos/competencias:
+    get:
+      operationId: catalogosCompetenciasGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de competencias obtenida exitosamente
+      summary: Lista de competencias técnicas
+      tags:
+      - Catálogos
+      x-eov-operation-handler: controllers/CatlogosController
+  /catalogos/idiomas:
+    get:
+      operationId: catalogosIdiomasGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de idiomas obtenida exitosamente
+      summary: Lista de idiomas disponibles
+      tags:
+      - Catálogos
+      x-eov-operation-handler: controllers/CatlogosController
+  /catalogos/rangos-renta:
+    get:
+      operationId: catalogosRangosRentaGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de rangos obtenida exitosamente
+      summary: Rangos de renta disponibles
+      tags:
+      - Catálogos
+      x-eov-operation-handler: controllers/CatlogosController
+  /catalogos/estados-seguimiento:
+    get:
+      operationId: catalogosEstadosSeguimientoGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de estados obtenida exitosamente
+      summary: Estados del proceso de selección
+      tags:
+      - Catálogos
+      x-eov-operation-handler: controllers/CatlogosController
+  /talentos/perfil:
+    get:
+      operationId: talentosPerfilGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Perfil obtenido exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Ver mi perfil completa
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+    put:
+      operationId: talentosPerfilPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_perfil_put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Perfil actulizado exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Actualizar mi perfil
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/educacion:
+    post:
+      operationId: talentosEducacionPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_educacion_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Educación agregada exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Agregar antecedente educacional
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/educacion/{id_educacion}:
+    delete:
+      operationId: talentosEducacionIdEducacionDELETE
+      parameters:
+      - explode: false
+        in: path
+        name: id_educacion
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Eliminado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Registro no encontrado
+      security:
+      - bearerAuth: []
+      summary: Eliminar antecedente educacional
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+    put:
+      operationId: talentosEducacionIdEducacionPUT
+      parameters:
+      - explode: false
+        in: path
+        name: id_educacion
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_educacion__id_educacion__put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Actualizado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Registro no encontrado
+      security:
+      - bearerAuth: []
+      summary: Actualizar antecedente educacional
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/laboral:
+    post:
+      operationId: talentosLaboralPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_laboral_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Experiencia laboral agregada exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Agregar experiencia laboral
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/laboral/{id_laboral}:
+    delete:
+      operationId: talentosLaboralIdLaboralDELETE
+      parameters:
+      - explode: false
+        in: path
+        name: id_laboral
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Eliminado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Registro no encontrado
+      security:
+      - bearerAuth: []
+      summary: Eliminar experiencia laboral
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+    put:
+      operationId: talentosLaboralIdLaboralPUT
+      parameters:
+      - explode: false
+        in: path
+        name: id_laboral
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_laboral__id_laboral__put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Actualizado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Registro no encontrado
+      security:
+      - bearerAuth: []
+      summary: Actualizar experiencia laboral
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/competencias:
+    put:
+      operationId: talentosCompetenciasPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_competencias_put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Competencias actualizadas exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Actualizar mis competencias técnicas
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /talentos/idiomas:
+    put:
+      operationId: talentosIdiomasPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_talentos_idiomas_put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Idiomas actualizados exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Actualizar mis idiomas
+      tags:
+      - Talentos
+      x-eov-operation-handler: controllers/TalentosController
+  /vitrina:
+    get:
+      description: "Devuelve talentos sin nombres, apellidos ni comuna. Solo accesible\
+        \ para empresa y admins."
+      operationId: vitrinaGET
+      parameters:
+      - example: Administración
+        explode: true
+        in: query
+        name: carrera
+        required: false
+        schema:
+          type: string
+        style: form
+      - example: Técnico Superior
+        explode: true
+        in: query
+        name: nivel_educacional
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: IDs separados por coma
+        example: "1,3,5"
+        explode: true
+        in: query
+        name: competencias
+        required: false
+        schema:
+          type: string
+        style: form
+      - example: false
+        explode: true
+        in: query
+        name: discapacidad_ley21015
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de paginada de CVs ciegos
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes persmiso para ver la Vitrina
+      security:
+      - bearerAuth: []
+      summary: Ver Vitrina de talentos con CV Ciego
+      tags:
+      - Vitrina
+      x-eov-operation-handler: controllers/VitrinaController
+  /vitrina/{id_talento}:
+    get:
+      operationId: vitrinaIdTalentoGET
+      parameters:
+      - explode: false
+        in: path
+        name: id_talento
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: CV Ciego del talento
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Talento no encontrado
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Ver CV Ciego de un talento específico
+      tags:
+      - Vitrina
+      x-eov-operation-handler: controllers/VitrinaController
+  /empresas/perfil:
+    get:
+      operationId: empresasPerfilGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Perfil de empresa obtenido exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Ver perfil de mi empresa
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+    put:
+      operationId: empresasPerfilPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_empresas_perfil_put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Perfil actualizado exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Actualizar perfil de empresa
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+  /empresas/usuarios:
+    get:
+      operationId: empresasUsuariosGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Lista de usuarios obtenida exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Ver usuarios de mi empresa
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+    post:
+      operationId: empresasUsuariosPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_empresas_usuarios_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Usuario creado exitosamente
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: El correo ya está registrado
+      security:
+      - bearerAuth: []
+      summary: Crear usuario para la empresa
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+  /empresas/usuarios/{id_usuario}:
+    delete:
+      operationId: empresasUsuariosIdUsuarioDELETE
+      parameters:
+      - explode: false
+        in: path
+        name: id_usuario
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Usuario eliminado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Usuario no encontrado
+      security:
+      - bearerAuth: []
+      summary: Eliminar usuario de empresa
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+  /empresas/solicitudes:
+    get:
+      operationId: empresasSolicitudesGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de solicitudes obtenida exitosamente
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Ver historial de solicitudes enviadas
+      tags:
+      - Empresas
+      x-eov-operation-handler: controllers/EmpresasController
+  /solicitudes:
+    post:
+      operationId: solicitudesPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_solicitudes_post_request"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Solicitud enviada al equipo municipal exitosamente
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Ya existe una solicitud activa para este talento
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Token inválido o expirado
+      security:
+      - bearerAuth: []
+      summary: Solicitar contacto con un talento
+      tags:
+      - Solicitudes
+      x-eov-operation-handler: controllers/SolicitudesController
+  /solicitudes/{id_solicitud}:
+    get:
+      operationId: solicitudesIdSolicitudGET
+      parameters:
+      - explode: false
+        in: path
+        name: id_solicitud
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Detalle de la solicitud obtenido exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Solicitud no encontrada
+      security:
+      - bearerAuth: []
+      summary: Ver detalle de una solicitud
+      tags:
+      - Solicitudes
+      x-eov-operation-handler: controllers/SolicitudesController
+  /solicitudes/{id_solicitud}/estado:
+    patch:
+      operationId: solicitudesIdSolicitudEstadoPATCH
+      parameters:
+      - explode: false
+        in: path
+        name: id_solicitud
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_solicitudes__id_solicitud__estado_patch_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Estado actualizado exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para cambiar el estado
+      security:
+      - bearerAuth: []
+      summary: Cambiar estado de solicitud (solo admin)
+      tags:
+      - Solicitudes
+      x-eov-operation-handler: controllers/SolicitudesController
+  /solicitudes/{id_solicitud}/notas:
+    put:
+      operationId: solicitudesIdSolicitudNotasPUT
+      parameters:
+      - explode: false
+        in: path
+        name: id_solicitud
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_solicitudes__id_solicitud__notas_put_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Notas actualizadas exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para agregar notas
+      security:
+      - bearerAuth: []
+      summary: Actualizar notas internas de una solicitud (solo admin)
+      tags:
+      - Solicitudes
+      x-eov-operation-handler: controllers/SolicitudesController
+  /admin/usuarios:
+    get:
+      operationId: adminUsuariosGET
+      parameters:
+      - explode: true
+        in: query
+        name: rol
+        required: false
+        schema:
+          enum:
+          - admin
+          - talento
+          - empresa
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: estado_validacion
+        required: false
+        schema:
+          enum:
+          - Pendiente
+          - Aprobado
+          - Rechazado
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de usuarios obtenida exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para ver esta sección
+      security:
+      - bearerAuth: []
+      summary: Listar todos los usuarios del sistema
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/usuarios/{id_usuario}/validar:
+    patch:
+      operationId: adminUsuariosIdUsuarioValidarPATCH
+      parameters:
+      - explode: false
+        in: path
+        name: id_usuario
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_admin_usuarios__id_usuario__validar_patch_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Estado de validación actualizado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Usuario no encontrado
+      security:
+      - bearerAuth: []
+      summary: Aprobar o rechazar cuenta de usuario
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/talentos:
+    get:
+      operationId: adminTalentosGET
+      parameters:
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de talentos obtenida exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para ver esta sección
+      security:
+      - bearerAuth: []
+      summary: Listar talentos con datos completos
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/talentos/{id_talento}/contratado:
+    patch:
+      description: Oculta al talento de la vitrina una vez contratado
+      operationId: adminTalentosIdTalentoContratadoPATCH
+      parameters:
+      - explode: false
+        in: path
+        name: id_talento
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/_admin_talentos__id_talento__contratado_patch_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Estado de contratación actualizado exitosamente
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Talento no encontrado
+      security:
+      - bearerAuth: []
+      summary: Marcar talento como contratado
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/empresas:
+    get:
+      operationId: adminEmpresasGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de empresas obtenida exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para ver esta sección
+      security:
+      - bearerAuth: []
+      summary: Listar todas las empresas
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/solicitudes:
+    get:
+      operationId: adminSolicitudesGET
+      parameters:
+      - explode: true
+        in: query
+        name: id_estado
+        required: false
+        schema:
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedResponse"
+          description: Lista de solicitudes obtenida exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para ver esta sección
+      security:
+      - bearerAuth: []
+      summary: Ver todas las solicitudes del sistema
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+  /admin/estadisticas:
+    get:
+      operationId: adminEstadisticasGET
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+          description: Estadísticas obtenidas exitosamente
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: No tienes permiso para ver esta sección
+      security:
+      - bearerAuth: []
+      summary: Dashboard de estadísticas generales
+      tags:
+      - Admin
+      x-eov-operation-handler: controllers/AdminController
+components:
+  schemas:
+    SuccessResponse:
+      example:
+        data: "{}"
+        success: true
+        message: Operación exitosa
+      properties:
+        success:
+          example: true
+          type: boolean
+        message:
+          example: Operación exitosa
+          type: string
+        data:
+          type: object
+      type: object
+    ErrorResponse:
+      example:
+        success: false
+        message: Descripción del error
+      properties:
+        success:
+          example: false
+          type: boolean
+        message:
+          example: Descripción del error
+          type: string
+      type: object
+    PaginatedResponse:
+      example:
+        data:
+        - "{}"
+        - "{}"
+        success: true
+        meta:
+          total: 48
+          limit: 10
+          totalPages: 5
+          page: 1
+      properties:
+        success:
+          example: true
+          type: boolean
+        data:
+          items:
+            type: object
+          type: array
+        meta:
+          $ref: "#/components/schemas/PaginatedResponse_meta"
+      type: object
+    _auth_login_post_request:
+      properties:
+        correo:
+          example: maria@gmail.com
+          format: email
+          type: string
+        password:
+          example: MiPassword123!
+          type: string
+      required:
+      - correo
+      - password
+      type: object
+    _auth_register_talento_post_request:
+      properties:
+        correo:
+          example: vecino@gmail.com
+          format: email
+          type: string
+        password:
+          example: Password123!
+          type: string
+      required:
+      - correo
+      - password
+      type: object
+    _auth_register_empresa_post_request:
+      properties:
+        correo:
+          example: rrhh@empresa.cl
+          format: email
+          type: string
+        password:
+          example: Password123!
+          type: string
+        rut_empresa:
+          example: 76.123.456-7
+          type: string
+        nombre_empresa:
+          example: Tech Solutions Spa
+          type: string
+      required:
+      - correo
+      - nombre_empresa
+      - password
+      - rut_empresa
+      type: object
+    _talentos_perfil_put_request:
+      properties:
+        resumen:
+          example: Profesional con 5 años en retail
+          type: string
+        jornada_deseada:
+          enum:
+          - completa
+          - parcial
+          - por_turnos
+          type: string
+        modalidad_deseada:
+          enum:
+          - presencial
+          - hibrido
+          - remoto
+          type: string
+        id_rango_renta:
+          example: 3
+          type: integer
+        discapacidad_ley21015:
+          example: false
+          type: boolean
+      type: object
+    _talentos_educacion_post_request:
+      properties:
+        nivel_educacional:
+          example: Técnico Superior
+          type: string
+        carrera:
+          example: Administración de Empresas
+          type: string
+        institucion:
+          example: INACAP
+          type: string
+      required:
+      - nivel_educacional
+      type: object
+    _talentos_educacion__id_educacion__put_request:
+      properties:
+        nivel_educacional:
+          type: string
+        carrera:
+          type: string
+        institucion:
+          type: string
+      type: object
+    _talentos_laboral_post_request:
+      properties:
+        empresa:
+          example: Falabella S.A.
+          type: string
+        cargo:
+          example: Vendedor Senior
+          type: string
+        descripcion:
+          type: string
+        fecha_inicio:
+          example: 2020-03-01
+          format: date
+          type: string
+        fecha_fin:
+          example: 2023-12-31
+          format: date
+          type: string
+      required:
+      - cargo
+      - empresa
+      type: object
+    _talentos_laboral__id_laboral__put_request:
+      properties:
+        empresa:
+          type: string
+        cargo:
+          type: string
+        descripcion:
+          type: string
+        fecha_inicio:
+          format: date
+          type: string
+        fecha_fin:
+          format: date
+          type: string
+      type: object
+    _talentos_competencias_put_request:
+      properties:
+        competencias:
+          example:
+          - 1
+          - 3
+          - 5
+          - 8
+          items:
+            type: integer
+          type: array
+      required:
+      - competencias
+      type: object
+    _talentos_idiomas_put_request_idiomas_inner:
+      properties:
+        id_idioma:
+          type: integer
+        nivel_dominio:
+          enum:
+          - basico
+          - intermedio
+          - avanzado
+          - nativo
+          type: string
+      type: object
+    _talentos_idiomas_put_request:
+      properties:
+        idiomas:
+          example:
+          - id_idioma: 2
+            nivel_dominio: avanzado
+          items:
+            $ref: "#/components/schemas/_talentos_idiomas_put_request_idiomas_inner"
+          type: array
+      required:
+      - idiomas
+      type: object
+    _empresas_perfil_put_request:
+      properties:
+        nombre_empresa:
+          example: Tech Solutions SpA
+          type: string
+        presentacion:
+          example: Empresa líder en tecnología
+          type: string
+        beneficios:
+          example: "Seguro médico, trabajo remoto"
+          type: string
+        id_rubro:
+          example: 1
+          type: integer
+        id_tipo_empresa:
+          example: 1
+          type: integer
+      type: object
+    _empresas_usuarios_post_request:
+      properties:
+        correo:
+          example: reclutador@empresa.cl
+          format: email
+          type: string
+        password:
+          example: Password123!
+          type: string
+        nombre_completo:
+          example: Juan Pérez
+          type: string
+        telefono_contacto:
+          example: "+56912345678"
+          type: string
+      required:
+      - correo
+      - nombre_completo
+      - password
+      type: object
+    _solicitudes_post_request:
+      properties:
+        id_talento:
+          example: 550e8400-e29b-41d4-a716-446655440000
+          format: uuid
+          type: string
+      required:
+      - id_talento
+      type: object
+    _solicitudes__id_solicitud__estado_patch_request:
+      properties:
+        id_estado:
+          description: "1=Solicitado, 2=Contactado, 3=Entrevista, 4=Seleccionado,\
+            \ 5=No seleccionado, 6=Cerrado"
+          example: 2
+          type: integer
+      required:
+      - id_estado
+      type: object
+    _solicitudes__id_solicitud__notas_put_request:
+      properties:
+        notas_internas:
+          example: "Candidato contactado el 15/05, pendiente respuesta"
+          type: string
+      required:
+      - notas_internas
+      type: object
+    _admin_usuarios__id_usuario__validar_patch_request:
+      properties:
+        estado_validacion:
+          enum:
+          - Aprobado
+          - Rechazado
+          example: Aprobado
+          type: string
+      required:
+      - estado_validacion
+      type: object
+    _admin_talentos__id_talento__contratado_patch_request:
+      properties:
+        contratado:
+          example: true
+          type: boolean
+      required:
+      - contratado
+      type: object
+    PaginatedResponse_meta:
+      example:
+        total: 48
+        limit: 10
+        totalPages: 5
+        page: 1
+      properties:
+        total:
+          example: 48
+          type: integer
+        page:
+          example: 1
+          type: integer
+        limit:
+          example: 10
+          type: integer
+        totalPages:
+          example: 5
+          type: integer
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      description: Token JWT obtenido desde POST /auth/login
+      scheme: bearer
+      type: http

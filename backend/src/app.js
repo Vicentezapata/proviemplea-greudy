@@ -9,6 +9,9 @@ const YAML = require('yamljs');
 // Importo la conexión a la base de datos
 const sequelize = require('./config/connection');
 
+// Importo las rutas
+const authRoutes = require('./routes/auth');
+
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
@@ -24,6 +27,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Ruta de documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Registro las rutas con el prefijo /api/v1
+app.use('/api/v1/auth', authRoutes);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
