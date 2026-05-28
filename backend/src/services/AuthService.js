@@ -70,32 +70,58 @@ const authRegisterTalentoPOST = async ({ authRegisterTalentoPostRequest }) => {
   };
 };
 
-// Registro de empresa
+// Registro de empresa con rollback
 const authRegisterEmpresaPOST = async ({ authRegisterEmpresaPostRequest }) => {
-  const { correo, password } = authRegisterEmpresaPostRequest;
+  const { correo, password, rut_empresa, nombre_empresa, id_rubro, id_tipo_empresa } = authRegisterEmpresaPostRequest;
+  const sequelize = require('../config/connection');
 
+  // Verifico si el correo ya existe
   const existe = await Usuario.findOne({ where: { correo } });
   if (existe) {
     return { success: false, message: 'El correo ya está registrado' };
   }
 
-  const password_hash = await bcrypt.hash(password, 10);
+  const t = await sequelize.transaction();
 
-  const usuario = await Usuario.create({
-    correo,
-    password_hash,
-    id_rol: 3,
-    estado_validacion: 'Pendiente'
-  });
+  try {
+    const password_hash = await bcrypt.hash(password, 10);
 
-  return {
-    success: true,
-    message: 'Empresa registrada exitosamente.',
-    data: {
-      id_usuario: usuario.id_usuario,
-      correo: usuario.correo
-    }
-  };
+    // 1. Creo el usuario
+    const usuario = await Usuario.create({
+      correo,
+      password_hash,
+      id_rol: 3,
+      estado_validacion: 'Aprobado'
+    }, { transaction: t });
+
+    // 2. Creo la empresa
+    const [empresaResult] = await sequelize.query(`
+      INSERT INTO empresas (rut_empresa, nombre_empresa, id_rubro, id_tipo_empresa)
+      VALUES ('${rut_empresa}', '${nombre_empresa}', ${id_rubro || 1}, ${id_tipo_empresa || 1})
+      RETURNING id_empresa
+    `, { transaction: t });
+
+    // 3. Vinculo usuario con empresa
+    await sequelize.query(`
+      INSERT INTO usuarios_empresa (id_usuario, id_empresa, nombre_completo)
+      VALUES ('${usuario.id_usuario}', '${empresaResult[0].id_empresa}', '${nombre_empresa}')
+    `, { transaction: t });
+
+    await t.commit();
+
+    return {
+      success: true,
+      message: 'Empresa registrada exitosamente.',
+      data: {
+        id_usuario: usuario.id_usuario,
+        correo: usuario.correo
+      }
+    };
+
+  } catch (error) {
+    await t.rollback();
+    throw error;
+  }
 };
 
 module.exports = {
