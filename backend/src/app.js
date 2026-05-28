@@ -12,6 +12,7 @@ const sequelize = require('./config/connection');
 // Importo las rutas
 const authRoutes = require('./routes/auth');
 const catalogosRoutes = require('./routes/catalogos');
+const talentosRoutes = require('./routes/talentos');
 
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
@@ -32,6 +33,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Registro las rutas con el prefijo /api/v1
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/catalogos', catalogosRoutes);
+app.use('/api/v1/talentos', talentosRoutes);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
