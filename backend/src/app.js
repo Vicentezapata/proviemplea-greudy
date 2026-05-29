@@ -14,6 +14,7 @@ const authRoutes = require('./routes/auth');
 const catalogosRoutes = require('./routes/catalogos');
 const talentosRoutes = require('./routes/talentos');
 const empresasRoutes = require('./routes/empresas');
+const vitrinaRoutes = require('./routes/vitrina');
 
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
@@ -36,6 +37,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/catalogos', catalogosRoutes);
 app.use('/api/v1/talentos', talentosRoutes);
 app.use('/api/v1/empresas', empresasRoutes);
+app.use('/api/v1/vitrina', vitrinaRoutes);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
