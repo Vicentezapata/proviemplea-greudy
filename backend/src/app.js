@@ -16,6 +16,7 @@ const talentosRoutes = require('./routes/talentos');
 const empresasRoutes = require('./routes/empresas');
 const vitrinaRoutes = require('./routes/vitrina');
 const solicitudesRoutes = require('./routes/solicitudes');
+const adminRoutes = require('./routes/admin');
 
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
@@ -40,6 +41,7 @@ app.use('/api/v1/talentos', talentosRoutes);
 app.use('/api/v1/empresas', empresasRoutes);
 app.use('/api/v1/vitrina', vitrinaRoutes);
 app.use('/api/v1/solicitudes', solicitudesRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
