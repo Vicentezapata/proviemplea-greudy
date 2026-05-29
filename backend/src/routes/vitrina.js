@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const VitrinaController = require('../controllers/VitrinaController');
 const { verificarToken } = require('../middleware/auth');
+const { verificarRol } = require('../middleware/roles');
 
-// Rutas de vitrina — requieren token JWT
-router.get('/', verificarToken, VitrinaController.vitrinaGET);
-router.get('/:id_talento', verificarToken, VitrinaController.vitrinaIdTalentoGET);
+// Vitrina solo accesible para empresas y admins
+router.get('/', verificarToken, verificarRol('empresa', 'admin'), VitrinaController.vitrinaGET);
+router.get('/:id_talento', verificarToken, verificarRol('empresa', 'admin'), VitrinaController.vitrinaIdTalentoGET);
 
 module.exports = router;
