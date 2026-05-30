@@ -18,6 +18,9 @@ const vitrinaRoutes = require('./routes/vitrina');
 const solicitudesRoutes = require('./routes/solicitudes');
 const adminRoutes = require('./routes/admin');
 
+// Importo rate limiting
+const { limiteGeneral, limiteLogin } = require('./config/rateLimit');
+
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
@@ -30,6 +33,10 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting — protección contra ataques
+app.use('/api/v1', limiteGeneral);
+app.use('/api/v1/auth/login', limiteLogin);
 
 // Ruta de documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
