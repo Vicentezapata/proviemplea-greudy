@@ -21,6 +21,9 @@ const adminRoutes = require('./routes/admin');
 // Importo rate limiting
 const { limiteGeneral, limiteLogin } = require('./config/rateLimit');
 
+// Importo el manejador de errores
+const errorHandler = require('./middleware/error');
+
 // Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
@@ -49,6 +52,9 @@ app.use('/api/v1/empresas', empresasRoutes);
 app.use('/api/v1/vitrina', vitrinaRoutes);
 app.use('/api/v1/solicitudes', solicitudesRoutes);
 app.use('/api/v1/admin', adminRoutes);
+
+// Manejo de errores centralizado — debe ir al final
+app.use(errorHandler);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
