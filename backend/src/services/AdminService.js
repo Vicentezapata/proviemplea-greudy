@@ -8,13 +8,8 @@ const adminUsuariosGET = async (query) => {
 
   let filtros = `WHERE u.fecha_eliminacion IS NULL`;
 
-  if (rol) {
-    filtros += ` AND r.nombre = '${rol}'`;
-  }
-
-  if (estado_validacion) {
-    filtros += ` AND u.estado_validacion = '${estado_validacion}'`;
-  }
+  if (rol) filtros += ` AND r.nombre = '${rol}'`;
+  if (estado_validacion) filtros += ` AND u.estado_validacion = '${estado_validacion}'`;
 
   const offset = (page - 1) * limit;
 
@@ -38,44 +33,29 @@ const adminUsuariosGET = async (query) => {
   return {
     success: true,
     data: usuarios,
-    meta: {
-      total,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(total / limit)
-    }
+    meta: { total, page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(total / limit) }
   };
 };
 
 // Aprobar o rechazar cuenta de usuario
 const adminUsuariosIdUsuarioValidarPATCH = async (id_usuario, body) => {
   const { estado_validacion } = body;
-
-  await Usuario.update(
-    { estado_validacion },
-    { where: { id_usuario } }
-  );
-
+  await Usuario.update({ estado_validacion }, { where: { id_usuario } });
   return { success: true, message: 'Estado de validación actualizado exitosamente' };
 };
 
-// Listar talentos con datos completos
+// Listar talentos con datos completos usando vista vw_talentos_disponibles
 const adminTalentosGET = async (query) => {
   const { page = 1, limit = 20 } = query;
   const offset = (page - 1) * limit;
 
   const [talentos] = await sequelize.query(`
-    SELECT t.*, u.correo, u.estado_validacion, rr.descripcion as rango_renta
-    FROM talentos t
-    JOIN usuarios u ON t.id_usuario = u.id_usuario
-    LEFT JOIN rangos_renta rr ON t.id_rango_renta = rr.id_rango
-    WHERE t.fecha_eliminacion IS NULL
-    ORDER BY t.fecha_creacion DESC
+    SELECT * FROM vw_talentos_disponibles
     LIMIT ${limit} OFFSET ${offset}
   `);
 
   const [countResult] = await sequelize.query(`
-    SELECT COUNT(*) as total FROM talentos t WHERE t.fecha_eliminacion IS NULL
+    SELECT COUNT(*) as total FROM vw_talentos_disponibles
   `);
 
   const total = parseInt(countResult[0].total);
@@ -83,24 +63,14 @@ const adminTalentosGET = async (query) => {
   return {
     success: true,
     data: talentos,
-    meta: {
-      total,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(total / limit)
-    }
+    meta: { total, page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(total / limit) }
   };
 };
 
 // Marcar talento como contratado
 const adminTalentosIdTalentoContratadoPATCH = async (id_talento, body) => {
   const { contratado } = body;
-
-  await Talento.update(
-    { contratado },
-    { where: { id_talento } }
-  );
-
+  await Talento.update({ contratado }, { where: { id_talento } });
   return { success: true, message: 'Estado de contratación actualizado exitosamente' };
 };
 
@@ -128,12 +98,7 @@ const adminEmpresasGET = async (query) => {
   return {
     success: true,
     data: empresas,
-    meta: {
-      total,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(total / limit)
-    }
+    meta: { total, page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(total / limit) }
   };
 };
 
@@ -143,10 +108,7 @@ const adminSolicitudesGET = async (query) => {
   const offset = (page - 1) * limit;
 
   let filtros = `WHERE 1=1`;
-
-  if (id_estado) {
-    filtros += ` AND st.id_estado = ${id_estado}`;
-  }
+  if (id_estado) filtros += ` AND st.id_estado = ${id_estado}`;
 
   const [solicitudes] = await sequelize.query(`
     SELECT st.*, es.nombre as estado
@@ -166,48 +128,25 @@ const adminSolicitudesGET = async (query) => {
   return {
     success: true,
     data: solicitudes,
-    meta: {
-      total,
-      page: parseInt(page),
-      limit: parseInt(limit),
-      totalPages: Math.ceil(total / limit)
-    }
+    meta: { total, page: parseInt(page), limit: parseInt(limit), totalPages: Math.ceil(total / limit) }
   };
 };
 
-// Dashboard de estadísticas generales
+// Dashboard de estadísticas usando vistas de la BD
 const adminEstadisticasGET = async () => {
-  const [[{ total_talentos }]] = await sequelize.query(
-    `SELECT COUNT(*) as total_talentos FROM talentos WHERE fecha_eliminacion IS NULL`
-  );
+  const [[estadisticas]] = await sequelize.query(`
+    SELECT * FROM vw_estadisticas_plataforma
+  `);
 
-  const [[{ total_empresas }]] = await sequelize.query(
-    `SELECT COUNT(*) as total_empresas FROM empresas WHERE fecha_eliminacion IS NULL`
-  );
-
-  const [[{ total_solicitudes }]] = await sequelize.query(
-    `SELECT COUNT(*) as total_solicitudes FROM solicitudes_talento`
-  );
-
-  const [[{ talentos_contratados }]] = await sequelize.query(
-    `SELECT COUNT(*) as talentos_contratados FROM talentos WHERE contratado = true`
-  );
-
-  const [solicitudes_por_estado] = await sequelize.query(`
-    SELECT es.nombre as estado, COUNT(*) as cantidad
-    FROM solicitudes_talento st
-    JOIN estados_seguimiento es ON st.id_estado = es.id_estado
-    GROUP BY es.nombre
+  const [estadisticasEmpresa] = await sequelize.query(`
+    SELECT * FROM vw_estadisticas_empresa
   `);
 
   return {
     success: true,
     data: {
-      total_talentos: parseInt(total_talentos),
-      total_empresas: parseInt(total_empresas),
-      total_solicitudes: parseInt(total_solicitudes),
-      talentos_contratados: parseInt(talentos_contratados),
-      solicitudes_por_estado
+      ...estadisticas,
+      estadisticas_por_empresa: estadisticasEmpresa
     }
   };
 };
