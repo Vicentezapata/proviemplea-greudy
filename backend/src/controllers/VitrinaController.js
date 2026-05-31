@@ -1,22 +1,22 @@
 const VitrinaService = require('../services/VitrinaService');
+const { exito, error, paginado } = require('../utils/response');
 
-// Ver vitrina de talentos con CV Ciego
-const vitrinaGET = async (req, res) => {
+const vitrinaGET = async (req, res, next) => {
   try {
     const resultado = await VitrinaService.vitrinaGET(req.query);
-    res.status(200).json(resultado);
+    return paginado(res, resultado.data, resultado.meta);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Ver CV Ciego de un talento específico
-const vitrinaIdTalentoGET = async (req, res) => {
+const vitrinaIdTalentoGET = async (req, res, next) => {
   try {
     const resultado = await VitrinaService.vitrinaIdTalentoGET(req.params.id_talento);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'CV Ciego obtenido exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 

@@ -1,102 +1,98 @@
 const TalentoService = require('../services/TalentoService');
+const { exito, error } = require('../utils/response');
 
-// Ver mi perfil completo
-const talentosPerfilGET = async (req, res) => {
+const talentosPerfilGET = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosPerfilGET(req.usuario.id_usuario);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Perfil obtenido exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar mi perfil
-const talentosPerfilPUT = async (req, res) => {
+const talentosPerfilPUT = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosPerfilPUT(req.usuario.id_usuario, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Agregar educación
-const talentosEducacionPOST = async (req, res) => {
+const talentosEducacionPOST = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosEducacionPOST(req.usuario.id_usuario, req.body);
-    res.status(201).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, {}, resultado.message, 201);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar educación
-const talentosEducacionIdEducacionPUT = async (req, res) => {
+const talentosEducacionIdEducacionPUT = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosEducacionIdEducacionPUT(req.params.id_educacion, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Eliminar educación
-const talentosEducacionIdEducacionDELETE = async (req, res) => {
+const talentosEducacionIdEducacionDELETE = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosEducacionIdEducacionDELETE(req.params.id_educacion);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Agregar experiencia laboral
-const talentosLaboralPOST = async (req, res) => {
+const talentosLaboralPOST = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosLaboralPOST(req.usuario.id_usuario, req.body);
-    res.status(201).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, {}, resultado.message, 201);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar experiencia laboral
-const talentosLaboralIdLaboralPUT = async (req, res) => {
+const talentosLaboralIdLaboralPUT = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosLaboralIdLaboralPUT(req.params.id_laboral, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Eliminar experiencia laboral
-const talentosLaboralIdLaboralDELETE = async (req, res) => {
+const talentosLaboralIdLaboralDELETE = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosLaboralIdLaboralDELETE(req.params.id_laboral);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar competencias
-const talentosCompetenciasPUT = async (req, res) => {
+const talentosCompetenciasPUT = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosCompetenciasPUT(req.usuario.id_usuario, req.body);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar idiomas
-const talentosIdiomasPUT = async (req, res) => {
+const talentosIdiomasPUT = async (req, res, next) => {
   try {
     const resultado = await TalentoService.talentosIdiomasPUT(req.usuario.id_usuario, req.body);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 

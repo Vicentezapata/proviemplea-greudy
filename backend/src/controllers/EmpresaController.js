@@ -1,63 +1,60 @@
 const EmpresaService = require('../services/EmpresaService');
+const { exito, error } = require('../utils/response');
 
-// Ver perfil de mi empresa
-const empresasPerfilGET = async (req, res) => {
+const empresasPerfilGET = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasPerfilGET(req.usuario.id_usuario);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Perfil obtenido exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar perfil de empresa
-const empresasPerfilPUT = async (req, res) => {
+const empresasPerfilPUT = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasPerfilPUT(req.usuario.id_usuario, req.body);
-    res.status(200).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Ver usuarios de la empresa
-const empresasUsuariosGET = async (req, res) => {
+const empresasUsuariosGET = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasUsuariosGET(req.usuario.id_usuario);
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Usuarios obtenidos exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Crear usuario para la empresa
-const empresasUsuariosPOST = async (req, res) => {
+const empresasUsuariosPOST = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasUsuariosPOST(req.usuario.id_usuario, req.body);
-    const status = resultado.success ? 201 : 409;
-    res.status(status).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 409);
+    return exito(res, {}, resultado.message, 201);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Eliminar usuario de empresa
-const empresasUsuariosIdUsuarioDELETE = async (req, res) => {
+const empresasUsuariosIdUsuarioDELETE = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasUsuariosIdUsuarioDELETE(req.params.id_usuario);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Ver solicitudes de la empresa
-const empresasSolicitudesGET = async (req, res) => {
+const empresasSolicitudesGET = async (req, res, next) => {
   try {
     const resultado = await EmpresaService.empresasSolicitudesGET(req.usuario.id_usuario);
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Solicitudes obtenidas exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 

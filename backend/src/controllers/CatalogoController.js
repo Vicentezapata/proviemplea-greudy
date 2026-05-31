@@ -1,47 +1,48 @@
 const CatalogoService = require('../services/CatalogoService');
+const { exito, error } = require('../utils/response');
 
-const catalogosRubrosGET = async (req, res) => {
+const catalogosRubrosGET = async (req, res, next) => {
   try {
     const resultado = await CatalogoService.catalogosRubrosGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Lista de rubros obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-const catalogosCompetenciasGET = async (req, res) => {
+const catalogosCompetenciasGET = async (req, res, next) => {
   try {
     const resultado = await CatalogoService.catalogosCompetenciasGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Lista de competencias obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-const catalogosIdiomasGET = async (req, res) => {
+const catalogosIdiomasGET = async (req, res, next) => {
   try {
     const resultado = await CatalogoService.catalogosIdiomasGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Lista de idiomas obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-const catalogosRangosRentaGET = async (req, res) => {
+const catalogosRangosRentaGET = async (req, res, next) => {
   try {
     const resultado = await CatalogoService.catalogosRangosRentaGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Lista de rangos obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-const catalogosEstadosSeguimientoGET = async (req, res) => {
+const catalogosEstadosSeguimientoGET = async (req, res, next) => {
   try {
     const resultado = await CatalogoService.catalogosEstadosSeguimientoGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Lista de estados obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 

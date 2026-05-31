@@ -1,72 +1,66 @@
 const AdminService = require('../services/AdminService');
+const { exito, error, paginado } = require('../utils/response');
 
-// Listar todos los usuarios del sistema
-const adminUsuariosGET = async (req, res) => {
+const adminUsuariosGET = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminUsuariosGET(req.query);
-    res.status(200).json(resultado);
+    return paginado(res, resultado.data, resultado.meta);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Aprobar o rechazar cuenta de usuario
-const adminUsuariosIdUsuarioValidarPATCH = async (req, res) => {
+const adminUsuariosIdUsuarioValidarPATCH = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminUsuariosIdUsuarioValidarPATCH(req.params.id_usuario, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Listar talentos con datos completos
-const adminTalentosGET = async (req, res) => {
+const adminTalentosGET = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminTalentosGET(req.query);
-    res.status(200).json(resultado);
+    return paginado(res, resultado.data, resultado.meta);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Marcar talento como contratado
-const adminTalentosIdTalentoContratadoPATCH = async (req, res) => {
+const adminTalentosIdTalentoContratadoPATCH = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminTalentosIdTalentoContratadoPATCH(req.params.id_talento, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Listar todas las empresas
-const adminEmpresasGET = async (req, res) => {
+const adminEmpresasGET = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminEmpresasGET(req.query);
-    res.status(200).json(resultado);
+    return paginado(res, resultado.data, resultado.meta);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Ver todas las solicitudes del sistema
-const adminSolicitudesGET = async (req, res) => {
+const adminSolicitudesGET = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminSolicitudesGET(req.query);
-    res.status(200).json(resultado);
+    return paginado(res, resultado.data, resultado.meta);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Dashboard de estadísticas generales
-const adminEstadisticasGET = async (req, res) => {
+const adminEstadisticasGET = async (req, res, next) => {
   try {
     const resultado = await AdminService.adminEstadisticasGET();
-    res.status(200).json(resultado);
+    return exito(res, resultado.data, 'Estadísticas obtenidas exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 

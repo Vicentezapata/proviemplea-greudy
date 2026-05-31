@@ -1,44 +1,41 @@
 const SolicitudService = require('../services/SolicitudService');
+const { exito, error } = require('../utils/response');
 
-// Solicitar contacto con un talento
-const solicitudesPOST = async (req, res) => {
+const solicitudesPOST = async (req, res, next) => {
   try {
     const resultado = await SolicitudService.solicitudesPOST(req.usuario.id_usuario, req.body);
-    const status = resultado.success ? 201 : 409;
-    res.status(status).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 409);
+    return exito(res, resultado.data, resultado.message, 201);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Ver detalle de una solicitud
-const solicitudesIdSolicitudGET = async (req, res) => {
+const solicitudesIdSolicitudGET = async (req, res, next) => {
   try {
     const resultado = await SolicitudService.solicitudesIdSolicitudGET(req.params.id_solicitud);
-    const status = resultado.success ? 200 : 404;
-    res.status(status).json(resultado);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Solicitud obtenida exitosamente');
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Cambiar estado de solicitud
-const solicitudesIdSolicitudEstadoPATCH = async (req, res) => {
+const solicitudesIdSolicitudEstadoPATCH = async (req, res, next) => {
   try {
     const resultado = await SolicitudService.solicitudesIdSolicitudEstadoPATCH(req.params.id_solicitud, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
-// Actualizar notas internas
-const solicitudesIdSolicitudNotasPUT = async (req, res) => {
+const solicitudesIdSolicitudNotasPUT = async (req, res, next) => {
   try {
     const resultado = await SolicitudService.solicitudesIdSolicitudNotasPUT(req.params.id_solicitud, req.body);
-    res.status(200).json(resultado);
+    return exito(res, {}, resultado.message);
   } catch (e) {
-    res.status(500).json({ success: false, message: e.message });
+    next(e);
   }
 };
 
