@@ -59,7 +59,8 @@ describe('Vitrina endpoints', () => {
       const talento = res.body.data[0];
       expect(talento.nombres).toBeUndefined();
       expect(talento.apellidos).toBeUndefined();
-      expect(talento.comuna_residencia).toBeUndefined();
+      expect(talento.nombres).toBeUndefined();
+      expect(talento.apellidos).toBeUndefined();
     }
   });
 

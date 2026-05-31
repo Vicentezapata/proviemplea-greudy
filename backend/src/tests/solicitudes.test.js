@@ -29,7 +29,7 @@ describe('Solicitudes endpoints', () => {
       .post('/api/v1/solicitudes')
       .set('Authorization', `Bearer ${tokenEmpresa}`)
       .send({
-        id_talento: '1bb0498c-b6f3-4612-b20e-64678468434a'
+        id_talento: 'e22d5d79-e760-42df-aada-1cc194d2de65'
       });
 
     expect([201, 409]).toContain(res.statusCode);

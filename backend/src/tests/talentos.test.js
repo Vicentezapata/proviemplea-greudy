@@ -53,7 +53,7 @@ describe('Talentos endpoints', () => {
       .post('/api/v1/talentos/educacion')
       .set('Authorization', `Bearer ${tokenTalento}`)
       .send({
-        nivel_educacional: 'Universitario',
+        nivel_educacional: 'Universitario completo',
         carrera: 'Ingeniería Comercial',
         institucion: 'Universidad de Chile'
       });
@@ -96,8 +96,8 @@ describe('Talentos endpoints', () => {
       .set('Authorization', `Bearer ${tokenTalento}`)
       .send({
         idiomas: [
-          { id_idioma: 1, nivel_dominio: 'nativo' },
-          { id_idioma: 2, nivel_dominio: 'avanzado' }
+          { id_idioma: 1, nivel_dominio: 'Nativo' },
+          { id_idioma: 2, nivel_dominio: 'C1' }
         ]
       });
 
