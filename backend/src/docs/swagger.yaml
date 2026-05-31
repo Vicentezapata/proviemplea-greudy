@@ -38,6 +38,8 @@ tags:
     description: Solicitudes de contacto empresa → talento
   - name: Admin
     description: Gestión completa del sistema (requiere rol admin)
+  - name: Archivos
+    description: Subida y gestión de archivos del talento (CV, comprobante residencia, certificados)
 
 # Elementos reutilizables para no repetir código en cada endpoint
 components:
@@ -1338,6 +1340,92 @@ paths:
                 $ref: '#/components/schemas/SuccessResponse'
         '403':
           description: No tienes permiso para ver esta sección
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    # ----------------- Módulo Archivos --------------------
+  /archivos:
+    get:
+      tags: [Archivos]
+      summary: Ver mis archivos subidos
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de archivos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /archivos/subir:
+    post:
+      tags: [Archivos]
+      summary: Subir archivo (CV, comprobante residencia o certificado)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - archivo
+                - tipo_documento
+              properties:
+                archivo:
+                  type: string
+                  format: binary
+                  description: Archivo PDF, Word, JPG o PNG (máx 5MB)
+                tipo_documento:
+                  type: string
+                  enum: [cv, comprobante_residencia, certificado]
+                  example: cv
+      responses:
+        '201':
+          description: Archivo subido exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          description: Formato no permitido o tipo inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /archivos/{id_archivo}:
+    delete:
+      tags: [Archivos]
+      summary: Eliminar un archivo
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id_archivo
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Archivo eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Archivo no encontrado
           content:
             application/json:
               schema:
