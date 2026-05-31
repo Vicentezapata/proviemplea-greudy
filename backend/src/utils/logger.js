@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Logger simple para registrar eventos del sistema
 const logger = {
   info: (message) => {

@@ -20,7 +20,7 @@ const verificarToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.usuario = decoded; // guardo los datos del usuario en el request
     next();
-  } catch (e) {
+  } catch {
     return res.status(401).json({ success: false, message: 'Token inválido o expirado' });
   }
 };

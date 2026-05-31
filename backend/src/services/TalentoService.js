@@ -98,7 +98,9 @@ const talentosLaboralIdLaboralPUT = async (id_laboral, body) => {
 
   await sequelize.query(
     `UPDATE antecedentes_laborales 
-     SET empresa = '${empresa}', cargo = '${cargo}', descripcion = '${descripcion}'
+     SET empresa = '${empresa}', cargo = '${cargo}', descripcion = '${descripcion}',
+     fecha_inicio = ${fecha_inicio ? `'${fecha_inicio}'` : 'NULL'},
+     fecha_fin = ${fecha_fin ? `'${fecha_fin}'` : 'NULL'}
      WHERE id_laboral = '${id_laboral}'`
   );
 

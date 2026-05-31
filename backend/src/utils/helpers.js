@@ -20,7 +20,8 @@ const generarMeta = (total, pagina, limite) => {
 
 // Elimina campos sensibles de un objeto usuario
 const sanitizarUsuario = (usuario) => {
-  const { password_hash, ...usuarioSeguro } = usuario;
+  // eslint-disable-next-line no-unused-vars
+  const { password_hash: _, ...usuarioSeguro } = usuario;
   return usuarioSeguro;
 };
 

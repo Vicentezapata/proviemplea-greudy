@@ -1,5 +1,5 @@
 const CatalogoService = require('../services/CatalogoService');
-const { exito, error } = require('../utils/response');
+const { exito } = require('../utils/response');
 
 const catalogosRubrosGET = async (req, res, next) => {
   try {

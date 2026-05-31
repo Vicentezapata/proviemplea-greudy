@@ -1,6 +1,8 @@
+/* eslint-disable no-console */
 // Middleware de manejo de errores centralizado
 // Se ejecuta cuando ocurre un error en cualquier parte de la app
 
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   console.error(`❌ Error: ${err.message}`);
   console.error(err.stack);

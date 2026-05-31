@@ -1,5 +1,5 @@
 const AdminService = require('../services/AdminService');
-const { exito, error, paginado } = require('../utils/response');
+const { exito, paginado } = require('../utils/response');
 
 const adminUsuariosGET = async (req, res, next) => {
   try {

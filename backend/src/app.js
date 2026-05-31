@@ -58,7 +58,9 @@ app.use(errorHandler);
 
 // Verifico conexión a la base de datos
 sequelize.authenticate()
+  // eslint-disable-next-line no-console
   .then(() => console.log('✅ Base de datos conectada'))
+  // eslint-disable-next-line no-console
   .catch(err => console.error('❌ Error conectando BD:', err));
 
 // Ruta de prueba para verificar que el servidor está activo
