@@ -1,11 +1,14 @@
+const { ROLES } = require('../utils/constants');
 // El Middleware verifica el rol del usuario autenticado
 const verificarRol = (...rolesPermitidos) => {
+  
+  
   return (req, res, next) => {
     // id_rol: 1=admin, 2=talento, 3=empresa
     const roles = {
-      1: 'admin',
-      2: 'talento',
-      3: 'empresa'
+      [ROLES.ADMIN]: 'admin',
+      [ROLES.TALENTO]: 'talento',
+      [ROLES.EMPRESA]: 'empresa'
     };
 
     const rolUsuario = roles[req.usuario.id_rol];

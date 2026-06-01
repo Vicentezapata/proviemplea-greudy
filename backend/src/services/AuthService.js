@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuario');
+const { ROLES, ESTADOS_VALIDACION } = require('../utils/constants');
 
 const generarToken = (usuario) => {
   return jwt.sign(
@@ -39,8 +40,8 @@ const authRegisterTalentoPOST = async ({ authRegisterTalentoPostRequest }) => {
   const usuario = await Usuario.create({
     correo,
     password_hash,
-    id_rol: 2,
-    estado_validacion: 'Pendiente'
+    id_rol: ROLES.TALENTO,
+    estado_validacion: ESTADOS_VALIDACION.PENDIENTE
   });
   return {
     success: true,
@@ -68,8 +69,8 @@ const authRegisterEmpresaPOST = async ({ authRegisterEmpresaPostRequest }) => {
     const usuario = await Usuario.create({
       correo,
       password_hash,
-      id_rol: 3,
-      estado_validacion: 'Aprobado'
+      id_rol: ROLES.EMPRESA,
+      estado_validacion: ESTADOS_VALIDACION.APROBADO
     }, { transaction: t });
 
     const [empresaResult] = await sequelize.query(

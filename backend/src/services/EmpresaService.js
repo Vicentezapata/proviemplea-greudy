@@ -2,6 +2,7 @@ const sequelize = require('../config/connection');
 const Empresa = require('../models/Empresa');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
+const { ROLES, ESTADOS_VALIDACION } = require('../utils/constants');
 
 const empresasPerfilGET = async (id_usuario) => {
   const [empresa] = await sequelize.query(
@@ -59,8 +60,8 @@ const empresasUsuariosPOST = async (id_usuario, body) => {
   const nuevoUsuario = await Usuario.create({
     correo,
     password_hash,
-    id_rol: 3,
-    estado_validacion: 'Aprobado'
+    id_rol: ROLES.EMPRESA,
+    estado_validacion: ESTADOS_VALIDACION.APROBADO
   });
   await sequelize.query(
     `INSERT INTO usuarios_empresa (id_usuario, id_empresa, nombre_completo, telefono_contacto)
