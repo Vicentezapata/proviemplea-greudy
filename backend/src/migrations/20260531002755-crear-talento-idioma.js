@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('talento_competencia', {
+    await queryInterface.createTable('talento_idioma', {
       id_talento: {
         type: Sequelize.UUID,
         allowNull: false,
@@ -10,24 +10,26 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      id_competencia: {
+      id_idioma: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'competencias_tecnicas', key: 'id_competencia' },
+        references: { model: 'idiomas', key: 'id_idioma' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+      },
+      nivel_dominio: {
+        type: Sequelize.STRING(50)
       }
     });
 
-    // Llave primaria compuesta
-    await queryInterface.addConstraint('talento_competencia', {
-      fields: ['id_talento', 'id_competencia'],
+    await queryInterface.addConstraint('talento_idioma', {
+      fields: ['id_talento', 'id_idioma'],
       type: 'primary key',
-      name: 'pk_talento_competencia'
+      name: 'pk_talento_idioma'
     });
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('talento_competencia');
+    await queryInterface.dropTable('talento_idioma');
   }
 };

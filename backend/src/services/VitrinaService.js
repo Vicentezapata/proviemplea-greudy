@@ -1,13 +1,13 @@
 const sequelize = require('../config/connection');
 
 const vitrinaGET = async (query) => {
-  const { carrera, nivel_educacional, competencias, discapacidad, page = 1, limit = 10 } = query;
+  const { carrera, nivel_educacional, competencias, discapacidad_ley21015, page = 1, limit = 10 } = query;
   const offset = (page - 1) * limit;
 
   let where = `WHERE 1=1`;
   const replacements = { limit: parseInt(limit), offset: parseInt(offset) };
 
-  if (discapacidad === 'true') {
+  if (discapacidad_ley21015 === 'true') {
     where += ` AND discapacidad_ley21015 = true`;
   }
 
@@ -29,10 +29,12 @@ const vitrinaGET = async (query) => {
 
   if (competencias) {
     const ids = competencias.split(',').map(id => parseInt(id.trim())).filter(Boolean);
-    where += ` AND id_talento IN (
-      SELECT id_talento FROM talento_competencia WHERE id_competencia IN (:ids)
-    )`;
-    replacements.ids = ids;
+    if (ids.length > 0) {
+      where += ` AND id_talento IN (
+        SELECT id_talento FROM talento_competencia WHERE id_competencia IN (:ids)
+      )`;
+      replacements.ids = ids;
+    }
   }
 
   const [talentos] = await sequelize.query(

@@ -1,15 +1,14 @@
-// Importo Express y middlewares
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require('path');
+const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 
-// Importo la conexión a la base de datos
 const sequelize = require('./config/connection');
 
-// Importo las rutas
 const authRoutes = require('./routes/auth');
 const catalogosRoutes = require('./routes/catalogos');
 const talentosRoutes = require('./routes/talentos');
@@ -18,35 +17,41 @@ const vitrinaRoutes = require('./routes/vitrina');
 const solicitudesRoutes = require('./routes/solicitudes');
 const adminRoutes = require('./routes/admin');
 const archivosRoutes = require('./routes/archivos');
+const perfeccionamientoRoutes = require('./routes/perfeccionamiento');
 
-// Importo rate limiting
 const { limiteGeneral, limiteLogin } = require('./config/rateLimit');
-
-// Importo el manejador de errores
 const errorHandler = require('./middleware/error');
 
+// Crear carpeta uploads automáticamente si no existe
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
 
-// Cargo el archivo swagger.yaml
 const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
-// Creo la aplicación Express
 const app = express();
 
-// Registro middlewares de seguridad y logs
 app.use(helmet());
-app.use(cors());
+
+// CORS restrictivo — solo el frontend autorizado
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rate limiting — protección contra ataques
-app.use('/api/v1', limiteGeneral);
+// Rate limiting — limiteLogin ANTES que limiteGeneral
 app.use('/api/v1/auth/login', limiteLogin);
+app.use('/api/v1', limiteGeneral);
 
-// Ruta de documentación Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Registro las rutas con el prefijo /api/v1
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/catalogos', catalogosRoutes);
 app.use('/api/v1/talentos', talentosRoutes);
@@ -55,21 +60,19 @@ app.use('/api/v1/vitrina', vitrinaRoutes);
 app.use('/api/v1/solicitudes', solicitudesRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/archivos', archivosRoutes);
+app.use('/api/v1/perfeccionamiento', perfeccionamientoRoutes);
 
-// Manejo de errores centralizado — debe ir al final
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', project: 'ProviEmplea API', version: '1.0.0' });
+});
+
+// Error handler siempre al final
 app.use(errorHandler);
 
-// Verifico conexión a la base de datos
 sequelize.authenticate()
   // eslint-disable-next-line no-console
   .then(() => console.log('✅ Base de datos conectada'))
   // eslint-disable-next-line no-console
   .catch(err => console.error('❌ Error conectando BD:', err));
 
-// Ruta de prueba para verificar que el servidor está activo
-app.get('/health', (req, res) => {
-  res.json({ status: 'OK', project: 'ProviEmplea API' });
-});
-
-// Exporto app para usarlo en server.js
 module.exports = app;

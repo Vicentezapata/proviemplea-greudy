@@ -1,7 +1,7 @@
 const sequelize = require('../config/connection');
 const Usuario = require('../models/Usuario');
 const Talento = require('../models/Talento');
-const { ESTADOS_VALIDACION } = require('../utils/constants');
+
 
 const adminUsuariosGET = async (query) => {
   const { rol, estado_validacion, page = 1, limit = 20 } = query;

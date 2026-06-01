@@ -2,8 +2,8 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('antecedentes_laborales', {
-      id_laboral: {
+    await queryInterface.createTable('perfeccionamiento', {
+      id_perfeccionamiento: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
         primaryKey: true
@@ -15,22 +15,15 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      empresa: {
+      nombre_curso: {
         type: Sequelize.STRING(150),
         allowNull: false
       },
-      cargo: {
-        type: Sequelize.STRING(100),
-        allowNull: false
+      institucion: {
+        type: Sequelize.STRING(150)
       },
-      descripcion: {
-        type: Sequelize.TEXT
-      },
-      fecha_inicio: {
-        type: Sequelize.DATEONLY
-      },
-      fecha_fin: {
-        type: Sequelize.DATEONLY
+      anio_certificacion: {
+        type: Sequelize.INTEGER
       },
       fecha_eliminacion: {
         type: Sequelize.DATE,
@@ -40,6 +33,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('antecedentes_laborales');
+    await queryInterface.dropTable('perfeccionamiento');
   }
 };
