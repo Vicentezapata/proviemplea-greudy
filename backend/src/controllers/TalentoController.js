@@ -94,6 +94,30 @@ const talentosIdiomasPUT = async (req, res, next) => {
   } catch (e) { next(e); }
 };
 
+const talentosSolicitudesGET = async (req, res, next) => {
+  try {
+    const resultado = await TalentoService.talentosSolicitudesGET(req.usuario.id_usuario);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Solicitudes obtenidas exitosamente');
+  } catch (e) { next(e); }
+};
+
+const talentosEstadisticasGET = async (req, res, next) => {
+  try {
+    const resultado = await TalentoService.talentosEstadisticasGET(req.usuario.id_usuario);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Estadisticas obtenidas exitosamente');
+  } catch (e) { next(e); }
+};
+
+const talentosHistorialGET = async (req, res, next) => {
+  try {
+    const resultado = await TalentoService.talentosHistorialGET(req.usuario.id_usuario);
+    if (!resultado.success) return error(res, resultado.message, 404);
+    return exito(res, resultado.data, 'Historial obtenido exitosamente');
+  } catch (e) { next(e); }
+};
+
 module.exports = {
   talentosPerfilGET,
   talentosPerfilPUT,
@@ -104,5 +128,8 @@ module.exports = {
   talentosLaboralIdLaboralPUT,
   talentosLaboralIdLaboralDELETE,
   talentosCompetenciasPUT,
-  talentosIdiomasPUT
+  talentosIdiomasPUT,
+  talentosSolicitudesGET,
+  talentosEstadisticasGET,
+  talentosHistorialGET
 };

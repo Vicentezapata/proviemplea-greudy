@@ -1554,6 +1554,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
+  # Ver solicitudes recibidas por el talento
+  /talentos/solicitudes:
+    get:
+      tags: [Talentos]
+      summary: Ver empresas interesadas en mi perfil
+      description: Devuelve todas las solicitudes de contacto que han hecho empresas hacia este talento
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de solicitudes obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # Estadísticas del dashboard del talento
+  /talentos/estadisticas:
+    get:
+      tags: [Talentos]
+      summary: Ver mis estadísticas del dashboard
+      description: Devuelve contadores de solicitudes activas, entrevistas, seleccionados, etc.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estadísticas obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  # Historial de procesos del talento
+  /talentos/historial:
+    get:
+      tags: [Talentos]
+      summary: Ver historial de procesos de selección
+      description: Devuelve el timeline completo de estados de cada solicitud recibida
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Historial obtenido exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Token inválido o expirado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   
   
 

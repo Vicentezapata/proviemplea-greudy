@@ -21,5 +21,8 @@ router.put('/laboral/:id_laboral', verificarToken, validarIdUUID, validarLaboral
 router.delete('/laboral/:id_laboral', verificarToken, validarIdUUID, TalentoController.talentosLaboralIdLaboralDELETE);
 router.put('/competencias', verificarToken, validarCompetencias, TalentoController.talentosCompetenciasPUT);
 router.put('/idiomas', verificarToken, validarIdiomas, TalentoController.talentosIdiomasPUT);
+router.get('/solicitudes', verificarToken, TalentoController.talentosSolicitudesGET);
+router.get('/estadisticas', verificarToken, TalentoController.talentosEstadisticasGET);
+router.get('/historial', verificarToken, TalentoController.talentosHistorialGET);
 
 module.exports = router;

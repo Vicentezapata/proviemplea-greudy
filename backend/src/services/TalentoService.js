@@ -197,6 +197,64 @@ const talentosIdiomasPUT = async (id_usuario, body) => {
   }
 };
 
+// ─── Solicitudes del Talento ──────────────────────────────────────────────────
+
+const talentosSolicitudesGET = async (id_usuario) => {
+  const id_talento = await obtenerIdTalentoDeUsuario(id_usuario);
+  if (!id_talento) return { success: false, message: 'Talento no encontrado' };
+
+  const [solicitudes] = await sequelize.query(
+    `SELECT s.id_solicitud, s.fecha_solicitud, s.fecha_actualizacion,
+            es.nombre as estado,
+            e.nombre_empresa, e.id_rubro
+     FROM solicitudes_talento s
+     JOIN estados_seguimiento es ON s.id_estado = es.id_estado
+     JOIN empresas e ON s.id_empresa = e.id_empresa
+     WHERE s.id_talento = :id_talento
+     ORDER BY s.fecha_solicitud DESC`,
+    { replacements: { id_talento } }
+  );
+  return { success: true, data: solicitudes };
+};
+
+const talentosEstadisticasGET = async (id_usuario) => {
+  const id_talento = await obtenerIdTalentoDeUsuario(id_usuario);
+  if (!id_talento) return { success: false, message: 'Talento no encontrado' };
+
+  const [stats] = await sequelize.query(
+    `SELECT
+       COUNT(*) as total_solicitudes,
+       COUNT(CASE WHEN es.nombre = 'Solicitado' THEN 1 END) as solicitudes_activas,
+       COUNT(CASE WHEN es.nombre = 'Entrevista' THEN 1 END) as en_entrevista,
+       COUNT(CASE WHEN es.nombre = 'Seleccionado' THEN 1 END) as seleccionado,
+       COUNT(CASE WHEN es.nombre = 'No seleccionado' THEN 1 END) as no_seleccionado
+     FROM solicitudes_talento s
+     JOIN estados_seguimiento es ON s.id_estado = es.id_estado
+     WHERE s.id_talento = :id_talento`,
+    { replacements: { id_talento } }
+  );
+  return { success: true, data: stats[0] };
+};
+
+const talentosHistorialGET = async (id_usuario) => {
+  const id_talento = await obtenerIdTalentoDeUsuario(id_usuario);
+  if (!id_talento) return { success: false, message: 'Talento no encontrado' };
+
+  const [historial] = await sequelize.query(
+    `SELECT s.id_solicitud, s.fecha_solicitud, s.fecha_actualizacion,
+            es.nombre as estado,
+            e.nombre_empresa,
+            s.notas_internas
+     FROM solicitudes_talento s
+     JOIN estados_seguimiento es ON s.id_estado = es.id_estado
+     JOIN empresas e ON s.id_empresa = e.id_empresa
+     WHERE s.id_talento = :id_talento
+     ORDER BY s.fecha_actualizacion DESC`,
+    { replacements: { id_talento } }
+  );
+  return { success: true, data: historial };
+};
+
 module.exports = {
   talentosPerfilGET,
   talentosPerfilPUT,
@@ -207,5 +265,8 @@ module.exports = {
   talentosLaboralIdLaboralPUT,
   talentosLaboralIdLaboralDELETE,
   talentosCompetenciasPUT,
-  talentosIdiomasPUT
+  talentosIdiomasPUT,
+  talentosSolicitudesGET,
+  talentosEstadisticasGET,
+  talentosHistorialGET
 };
