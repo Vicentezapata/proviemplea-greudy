@@ -1,175 +1,304 @@
 <div align="center">
-  <img src="assets/logo_proviemplea.png" alt="ProviEmplea Logo" width="100%"/>
+  <img src="assets/logo_proviemplea.png" alt="ProviEmplea" width="100%"/>
+</div>
+
+<br/>
+
+<div align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Express-5.x-000000?style=for-the-badge&logo=express&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/PostgreSQL-14+-4169E1?style=for-the-badge&logo=postgresql&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Sequelize-6-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=for-the-badge&logo=swagger&logoColor=black"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/Jest-47%20tests-C21325?style=for-the-badge&logo=jest&logoColor=white"/></a>
+</div>
+
+<br/>
+
+<div align="center">
+  <h2>🏛️ Plataforma de Búsqueda Inversa de Empleo</h2>
+  <p><strong>Departamento de Empleo — Municipalidad de Providencia, Chile</strong></p>
+  <p><em>Las empresas buscan a los candidatos, no al revés</em></p>
 </div>
 
 <br/>
 
 <div align="center">
 
-  <img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js"/>
-  <img src="https://img.shields.io/badge/Express-5.x-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-14+-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
-  <img src="https://img.shields.io/badge/Sequelize-6-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white" alt="Sequelize"/>
-  <img src="https://img.shields.io/badge/JWT-Auth-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT"/>
-  <img src="https://img.shields.io/badge/Tests-47%20passing-2ECC40?style=for-the-badge&logo=jest&logoColor=white" alt="Tests"/>
+```
+🚧  En desarrollo activo  ·  Mayo – Agosto 2026  ·  Fase 1
+```
 
-</div>
-
-<br/>
-
-<div align="center">
-  <h3>🚧 En desarrollo activo — Mayo 2026</h3>
-  <p><em>Plataforma de búsqueda inversa de empleo para vecinos de Providencia, Chile</em></p>
 </div>
 
 <br/>
 
 ---
 
-## 📋 Tabla de Contenidos
+<br/>
+
+## 📌 Tabla de Contenidos
+
+<br/>
 
 <div align="center">
+<table>
+<tr>
+<td align="center">
 
-| | Sección |
-|:---:|:---|
-| 01 | [¿Qué hace este proyecto?](#-qué-hace-este-proyecto) |
-| 02 | [Tecnologías utilizadas](#-tecnologías-utilizadas) |
-| 03 | [Estructura del proyecto](#-estructura-del-proyecto) |
-| 04 | [Cómo instalar y ejecutar](#-cómo-instalar-y-ejecutar) |
-| 05 | [Configuración](#-configuración-env) |
-| 06 | [Módulos de la API](#-módulos-de-la-api) |
-| 07 | [Flujo del sistema](#-flujo-del-sistema) |
-| 08 | [Base de datos](#-base-de-datos) |
-| 09 | [Roles del sistema](#-roles-del-sistema) |
-| 10 | [Seguridad](#-seguridad) |
-| 11 | [Pruebas](#-pruebas) |
-| 12 | [Documentación](#-documentación) |
-| 13 | [Equipo](#-equipo) |
-| 14 | [Cliente](#-cliente) |
+**Proyecto**
+[¿Qué hace?](#-qué-hace-este-proyecto) · [Tecnologías](#-tecnologías) · [Estructura](#-estructura-del-proyecto)
 
+</td>
+<td align="center">
+
+**Instalación**
+[Requisitos](#-instalación) · [Pasos](#pasos) · [Variables de entorno](#-configuración-env)
+
+</td>
+</tr>
+<tr>
+<td align="center">
+
+**API**
+[Módulos](#-módulos-de-la-api) · [Flujos](#-flujos-del-sistema) · [Roles](#-roles-del-sistema)
+
+</td>
+<td align="center">
+
+**Calidad**
+[Base de datos](#-base-de-datos) · [Seguridad](#-seguridad) · [Pruebas](#-pruebas)
+
+</td>
+</tr>
+<tr>
+<td align="center" colspan="2">
+
+**Recursos**
+[Documentación](#-documentación) · [Equipo](#-equipo) · [Cliente](#-cliente)
+
+</td>
+</tr>
+</table>
 </div>
 
+<br/>
+
 ---
+
+<br/>
 
 ## 🎯 ¿Qué hace este proyecto?
 
-> ProviEmplea funciona **al revés** de una bolsa de empleo tradicional.
+<br/>
 
-En lugar de que los vecinos postulen a ofertas, **las empresas buscan activamente a los candidatos**. Los vecinos de Providencia crean un perfil con su experiencia, habilidades e idiomas. Las empresas pueden buscar y filtrar candidatos **sin ver su nombre, edad, género ni comuna** — solo sus competencias laborales.
+<div align="center">
+<table>
+<tr>
+<td width="50%" align="center">
 
-Este repositorio contiene el **backend** (servidor y API REST) que alimenta la plataforma.
+### ❌ Modelo tradicional
+El candidato busca ofertas y postula a vacantes publicadas por empresas
+
+</td>
+<td width="50%" align="center">
+
+### ✅ Modelo ProviEmplea
+Las empresas buscan activamente candidatos según sus competencias
+
+</td>
+</tr>
+</table>
+</div>
+
+<br/>
+
+Los vecinos de Providencia crean un perfil con su experiencia, habilidades e idiomas. Las empresas buscan y filtran candidatos **sin ver su nombre, edad, género ni comuna** — solo sus competencias laborales.
+
+El Departamento de Empleo actúa como **intermediario** entre empresa y candidato, garantizando transparencia y no discriminación en todo el proceso.
+
+Este repositorio contiene el **backend** — el servidor API REST que alimenta la plataforma.
 
 <br/>
 
 ---
 
-## 🛠 Tecnologías utilizadas
+<br/>
+
+## 🛠 Tecnologías
+
+<br/>
 
 <div align="center">
-
-| Capa | Tecnología | Descripción |
-|:----:|:----------:|:-----------|
-| 🖥️ Servidor | **Node.js + Express 5** | Recibe y responde las peticiones del frontend |
-| 🗄️ Base de datos | **PostgreSQL 14+** | Almacena toda la información del sistema |
-| 🔗 ORM | **Sequelize 6** | Manejo de la base de datos sin SQL manual |
-| 🔐 Autenticación | **JWT + bcryptjs** | Tokens seguros y contraseñas cifradas |
-| 📄 Documentación | **Swagger / OpenAPI** | Documentación interactiva de la API |
-| 📁 Archivos | **Multer** | Gestión de CVs y comprobantes |
-| 🧪 Pruebas | **Jest + Supertest** | Pruebas automáticas del sistema |
-| 🛡️ Seguridad | **Helmet + CORS + Rate Limit** | Protección contra ataques comunes |
-
+<table>
+<tr>
+  <th align="center">Capa</th>
+  <th align="center">Tecnología</th>
+  <th align="left">Descripción</th>
+</tr>
+<tr>
+  <td align="center">🖥️ Servidor</td>
+  <td align="center"><strong>Node.js + Express 5</strong></td>
+  <td>Recibe y responde las peticiones del frontend</td>
+</tr>
+<tr>
+  <td align="center">🗄️ Base de datos</td>
+  <td align="center"><strong>PostgreSQL 14+</strong></td>
+  <td>Almacena toda la información del sistema</td>
+</tr>
+<tr>
+  <td align="center">🔗 ORM</td>
+  <td align="center"><strong>Sequelize 6</strong></td>
+  <td>Manejo de la base de datos sin SQL manual</td>
+</tr>
+<tr>
+  <td align="center">🔐 Auth</td>
+  <td align="center"><strong>JWT + bcryptjs</strong></td>
+  <td>Tokens seguros y contraseñas cifradas</td>
+</tr>
+<tr>
+  <td align="center">📄 Docs</td>
+  <td align="center"><strong>Swagger / OpenAPI</strong></td>
+  <td>Documentación interactiva de la API</td>
+</tr>
+<tr>
+  <td align="center">📁 Archivos</td>
+  <td align="center"><strong>Multer</strong></td>
+  <td>Gestión de CVs y comprobantes de residencia</td>
+</tr>
+<tr>
+  <td align="center">🧪 Testing</td>
+  <td align="center"><strong>Jest + Supertest</strong></td>
+  <td>47 pruebas unitarias + pruebas de integración</td>
+</tr>
+<tr>
+  <td align="center">🛡️ Seguridad</td>
+  <td align="center"><strong>Helmet + CORS + Rate Limit</strong></td>
+  <td>Protección contra ataques comunes</td>
+</tr>
+</table>
 </div>
 
 <br/>
 
 ---
 
+<br/>
+
 ## 📁 Estructura del proyecto
 
+<br/>
+
 ```
-backend/
-├── 📂 assets/              # Logo e imágenes del proyecto
-├── 📂 docs/                # Documentación (Word, SQL)
+📦 backend/
+┃
+├── 📂 assets/              ← Logo e imágenes del proyecto
+├── 📂 docs/                ← Documentación entregable (Word, SQL)
+┃
 ├── 📂 src/
-│   ├── 📂 config/          # Configuración de base de datos y archivos
-│   ├── 📂 controllers/     # Reciben las peticiones y devuelven respuestas
-│   ├── 📂 docs/            # Documentación Swagger (swagger.yaml)
-│   ├── 📂 middleware/      # Seguridad, roles y manejo de errores
-│   ├── 📂 migrations/      # Creación de tablas en la base de datos
-│   ├── 📂 models/          # Representación de las tablas de la BD
-│   ├── 📂 routes/          # Rutas disponibles de la API
-│   ├── 📂 seeders/         # Datos iniciales del sistema
-│   ├── 📂 services/        # Lógica principal del negocio
-│   ├── 📂 tests/           # Pruebas unitarias y de integración
-│   ├── 📂 uploads/         # Archivos subidos por los talentos
-│   ├── 📂 utils/           # Funciones de apoyo
-│   ├── 📂 validators/      # Validación de datos recibidos
-│   └── 📄 app.js           # Configuración Express
-├── 📄 .env                 # Variables de entorno (no commiteado)
-├── 📄 .env.example         # Plantilla de configuración
-├── 📄 .sequelizerc         # Configuración Sequelize CLI
-├── 📄 eslint.config.js     # Configuración ESLint
-├── 📄 package.json
-├── 📄 SECURITY.md          # Política de seguridad
-└── 📄 server.js            # Punto de inicio del servidor
+│   ├── 📂 config/          ← Configuración de BD y archivos
+│   ├── 📂 controllers/     ← Reciben peticiones y devuelven respuestas
+│   ├── 📂 docs/            ← Swagger / OpenAPI (swagger.yaml)
+│   ├── 📂 middleware/      ← JWT, roles, manejo de errores
+│   ├── 📂 migrations/      ← Creación de tablas (Sequelize CLI)
+│   ├── 📂 models/          ← Modelos de las tablas de la BD
+│   ├── 📂 routes/          ← Rutas disponibles de la API
+│   ├── 📂 seeders/         ← Datos iniciales del sistema
+│   ├── 📂 services/        ← Lógica del negocio
+│   ├── 📂 tests/           ← Pruebas unitarias y de integración
+│   ├── 📂 uploads/         ← Archivos subidos por los talentos
+│   ├── 📂 utils/           ← Funciones de apoyo reutilizables
+│   ├── 📂 validators/      ← Validación y sanitización de datos
+│   └── 📄 app.js           ← Configuración de Express
+┃
+├── 📄 .env.example         ← Plantilla de variables de entorno
+├── 📄 .sequelizerc         ← Configuración de Sequelize CLI
+├── 📄 eslint.config.js     ← Reglas de calidad de código
+├── 📄 package.json         ← Dependencias y scripts
+├── 📄 SECURITY.md          ← Política de seguridad del proyecto
+└── 📄 server.js            ← Punto de inicio del servidor
 ```
 
 <br/>
 
 ---
 
-## 🚀 Cómo instalar y ejecutar
+<br/>
+
+## 🚀 Instalación
+
+<br/>
 
 ### Requisitos previos
 
-- **Node.js** versión 18 o superior
-- **PostgreSQL** versión 14 o superior
+<div align="center">
 
-### Pasos de instalación
+| Herramienta | Versión mínima | Descarga |
+|:-----------:|:--------------:|:--------:|
+| Node.js | 18.x | [nodejs.org](https://nodejs.org) |
+| PostgreSQL | 14.x | [postgresql.org](https://www.postgresql.org) |
+| npm | 9.x | Incluido con Node.js |
+
+</div>
+
+<br/>
+
+### Pasos
 
 ```bash
-# 1. Clonar el repositorio
+# 1 · Clonar el repositorio
 git clone https://github.com/GreudyInoa/proviemplea.git
 cd proviemplea/backend
 
-# 2. Instalar dependencias
+# 2 · Instalar dependencias
 npm install
 
-# 3. Crear el archivo de configuración
+# 3 · Configurar variables de entorno
 cp .env.example .env
-# Abre .env y completa tus datos
+# → Abre .env y completa los datos de tu entorno
 
-# 4. Crear la base de datos
+# 4 · Crear la base de datos
 createdb proviemplea_db
 
-# 5. Ejecutar las migraciones
+# 5 · Ejecutar migraciones
 npx sequelize-cli db:migrate
 
-# 6. Cargar los datos iniciales
+# 6 · Cargar datos iniciales
 npx sequelize-cli db:seed:all
 
-# 7. Iniciar el servidor en desarrollo
+# 7 · Iniciar servidor en desarrollo
 npm run dev
 ```
+
+> ✅ El servidor estará disponible en `http://localhost:3000`
 
 <br/>
 
 ---
 
+<br/>
+
 ## ⚙️ Configuración (.env)
 
+<br/>
+
 ```env
+# ── Servidor ──────────────────────────────
 PORT=3000
 
+# ── Base de Datos ─────────────────────────
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=proviemplea_db
 DB_USER=postgres
 DB_PASSWORD=tu_contraseña
 
-JWT_SECRET=una_clave_secreta_segura
+# ── Autenticación ─────────────────────────
+JWT_SECRET=una_clave_secreta_muy_segura
 JWT_EXPIRES_IN=24h
 
+# ── CORS ──────────────────────────────────
 CORS_ORIGIN=http://localhost:5173
 ```
 
@@ -177,81 +306,143 @@ CORS_ORIGIN=http://localhost:5173
 
 ---
 
+<br/>
+
 ## 📦 Módulos de la API
 
+<br/>
+
 <div align="center">
-
-| Módulo | Ruta Base | Acceso | Descripción |
-|:------:|:---------:|:------:|:-----------|
-| 🔑 **Auth** | `/api/v1/auth` | Público | Registro e inicio de sesión |
-| 👤 **Talentos** | `/api/v1/talentos` | Talento | Perfil laboral completo |
-| 📚 **Perfeccionamiento** | `/api/v1/perfeccionamiento` | Talento | Cursos y certificaciones |
-| 🌟 **Vitrina** | `/api/v1/vitrina` | Empresa | CV ciego de candidatos |
-| 🏢 **Empresas** | `/api/v1/empresas` | Empresa | Perfil y usuarios |
-| 📨 **Solicitudes** | `/api/v1/solicitudes` | Empresa/Admin | Contacto empresa→talento |
-| 🛠️ **Administración** | `/api/v1/admin` | Admin | Panel del Departamento |
-| 📁 **Archivos** | `/api/v1/archivos` | Talento | CVs y documentos |
-| 📋 **Catálogos** | `/api/v1/catalogos` | Autenticado | Datos de referencia |
-
+<table>
+<tr>
+  <th align="center">Módulo</th>
+  <th align="center">Ruta Base</th>
+  <th align="center">Acceso</th>
+  <th align="left">Descripción</th>
+</tr>
+<tr>
+  <td align="center">🔑 Auth</td>
+  <td align="center"><code>/api/v1/auth</code></td>
+  <td align="center">Público</td>
+  <td>Registro e inicio de sesión</td>
+</tr>
+<tr>
+  <td align="center">👤 Talentos</td>
+  <td align="center"><code>/api/v1/talentos</code></td>
+  <td align="center">Talento</td>
+  <td>Perfil laboral completo del vecino</td>
+</tr>
+<tr>
+  <td align="center">📚 Perfeccionamiento</td>
+  <td align="center"><code>/api/v1/perfeccionamiento</code></td>
+  <td align="center">Talento</td>
+  <td>Cursos y certificaciones</td>
+</tr>
+<tr>
+  <td align="center">🌟 Vitrina</td>
+  <td align="center"><code>/api/v1/vitrina</code></td>
+  <td align="center">Empresa</td>
+  <td>CV ciego de candidatos</td>
+</tr>
+<tr>
+  <td align="center">🏢 Empresas</td>
+  <td align="center"><code>/api/v1/empresas</code></td>
+  <td align="center">Empresa</td>
+  <td>Perfil empresarial y usuarios</td>
+</tr>
+<tr>
+  <td align="center">📨 Solicitudes</td>
+  <td align="center"><code>/api/v1/solicitudes</code></td>
+  <td align="center">Empresa / Admin</td>
+  <td>Solicitudes de contacto empresa→talento</td>
+</tr>
+<tr>
+  <td align="center">🛠️ Admin</td>
+  <td align="center"><code>/api/v1/admin</code></td>
+  <td align="center">Admin</td>
+  <td>Panel del Departamento de Empleo</td>
+</tr>
+<tr>
+  <td align="center">📁 Archivos</td>
+  <td align="center"><code>/api/v1/archivos</code></td>
+  <td align="center">Talento</td>
+  <td>Subida de CVs y documentos</td>
+</tr>
+<tr>
+  <td align="center">📋 Catálogos</td>
+  <td align="center"><code>/api/v1/catalogos</code></td>
+  <td align="center">Autenticado</td>
+  <td>Competencias, idiomas, rubros y rangos</td>
+</tr>
+</table>
 </div>
 
-> 📖 Documentación interactiva disponible en: `http://localhost:3000/api/v1/docs`
+<br/>
+
+> 📖 **Documentación interactiva:** `http://localhost:3000/api/v1/docs`
 
 <br/>
 
 ---
 
-## 🔄 Flujo del sistema
+<br/>
+
+## 🔄 Flujos del sistema
+
+<br/>
 
 ### Flujo de una petición HTTP
 
 ```mermaid
 flowchart TD
-    A([👤 Usuario / Frontend]) -->|HTTP Request| B[🛡️ Middleware]
-    B --> C{¿Token JWT válido?}
-    C -->|❌ No| D([401 No autorizado])
-    C -->|✅ Sí| E{¿Tiene permisos?}
-    E -->|❌ No| F([403 Prohibido])
-    E -->|✅ Sí| G[📋 Controller]
+    A([👤 Frontend React]) -->|HTTP Request + JWT| B
+    subgraph MW [🛡️ Middleware]
+        B[Verifica Token JWT]
+        B --> C{¿Token válido?}
+        C -->|No| D([❌ 401 No autorizado])
+        C -->|Sí| E{¿Tiene permisos?}
+        E -->|No| F([❌ 403 Prohibido])
+    end
+    E -->|Sí| G[📋 Controller]
     G --> H[⚙️ Service]
-    H --> I[(🗄️ PostgreSQL)]
-    I --> H
+    H -->|Query| I[(🗄️ PostgreSQL)]
+    I -->|Resultado| H
     H --> G
     G -->|JSON Response| A
 ```
 
 <br/>
 
-### Flujo de registro de un Talento
+### Registro de un Talento
 
 ```mermaid
 flowchart LR
-    A([👤 Vecino]) --> B[📝 Se registra\ncorreo + contraseña]
-    B --> C{¿Correo\nexiste?}
-    C -->|Sí| D([❌ Error])
-    C -->|No| E[🔐 Cifra contraseña\nbcrypt]
-    E --> F[(💾 Guarda en BD\nEstado: Pendiente)]
-    F --> G[🏛️ Admin valida\nmanualmente]
-    G --> H([✅ Cuenta Aprobada])
-    H --> I[Completa su perfil]
-    I --> J[📄 Experiencia]
-    I --> K[🎓 Educación]
-    I --> L[💡 Competencias]
-    I --> M[📁 Sube CV]
-    J & K & L & M --> N([🌟 Visible en Vitrina])
+    A([👤 Vecino]) --> B[📝 Ingresa correo\ny contraseña]
+    B --> C{¿Correo\nregistrado?}
+    C -->|Sí| Z([❌ Error])
+    C -->|No| D[🔐 Cifra con bcrypt]
+    D --> E[(💾 BD: Estado\nPendiente)]
+    E --> F[🏛️ Admin valida\nmanualmente]
+    F --> G([✅ Cuenta aprobada])
+    G --> H[Completa su perfil]
+    H --> I[📄 Experiencia\nlaboral]
+    H --> J[🎓 Educación]
+    H --> K[💡 Competencias\ne idiomas]
+    H --> L[📁 Sube CV\ny residencia]
+    I & J & K & L --> M([🌟 Visible en Vitrina])
 ```
 
 <br/>
 
-### Flujo de búsqueda de una Empresa
+### Búsqueda de candidatos por una Empresa
 
 ```mermaid
 flowchart TD
     A([🏢 Empresa]) --> B[🔍 Aplica filtros]
-    B --> C[Carrera / Competencias\nIdiomas / Discapacidad]
-    C --> D[🌟 Vitrina muestra\nCV Ciego]
-    D --> E[📋 Ve solo competencias\nSIN datos personales]
-    E --> F{¿Le interesa\nel candidato?}
+    B --> C[Carrera · Competencias\nIdiomas · Discapacidad]
+    C --> D[🌟 Vitrina: CV Ciego]
+    D --> E[Ve solo competencias\nSIN datos personales]
+    E --> F{¿Interesa\nel candidato?}
     F -->|No| B
     F -->|Sí| G[📨 Solicita contacto]
     G --> H[🏛️ Admin del Depto]
@@ -259,8 +450,7 @@ flowchart TD
     I --> J[🔄 Proceso de Selección]
     J --> K([✅ Seleccionado])
     J --> L([❌ No seleccionado])
-    K --> M([📊 Estadísticas actualizadas])
-    L --> M
+    K & L --> M([📊 Estadísticas\nactualizadas])
 ```
 
 <br/>
@@ -269,44 +459,44 @@ flowchart TD
 
 ```mermaid
 graph TB
-    subgraph FE["🖥️ Frontend (React)"]
-        F1[Vitrina Talentos]
+    subgraph FE["🖥️ Frontend — React"]
+        F1[Vitrina] 
         F2[Perfil Talento]
         F3[Panel Empresa]
         F4[Panel Admin]
     end
 
-    subgraph BE["⚙️ Backend (Node.js + Express)"]
-        B1["🛡️ Middleware\nJWT | Roles | Rate Limit"]
-        B2["📋 Controllers"]
-        B3["⚙️ Services\nLógica del negocio"]
-        B4["🗂️ Models\nSequelize ORM"]
-        B5["📄 Swagger\nOpenAPI"]
+    subgraph BE["⚙️ Backend — Node.js + Express"]
+        B1[Middleware · JWT · Roles]
+        B2[Controllers]
+        B3[Services · Lógica del negocio]
+        B4[Models · Sequelize ORM]
+        B5[Swagger · OpenAPI]
     end
 
-    subgraph DB["🗄️ Base de Datos (PostgreSQL)"]
-        D1[Usuarios]
-        D2[Talentos]
-        D3[Empresas]
-        D4[Solicitudes]
-        D5[Vistas SQL]
+    subgraph DB["🗄️ PostgreSQL"]
+        D1[Usuarios · Talentos · Empresas]
+        D2[Solicitudes · Catálogos]
+        D3[Vistas SQL · Stored Procedures]
     end
 
-    FE -->|HTTP| B1
-    B1 --> B2
-    B2 --> B3
-    B3 --> B4
-    B4 --> DB
-    DB -->|JSON| FE
+    FE -->|HTTP + JWT| B1
+    B1 --> B2 --> B3 --> B4
+    B4 <-->|SQL| DB
+    B4 -->|JSON| FE
 ```
 
 <br/>
 
 ---
 
+<br/>
+
 ## 🗄️ Base de Datos
 
-### Modelo Entidad-Relación
+<br/>
+
+### Diagrama Entidad-Relación
 
 ```mermaid
 erDiagram
@@ -340,7 +530,7 @@ erDiagram
         int id_tipo_empresa FK
     }
     USUARIOS_EMPRESA {
-        uuid id_usuario PK FK
+        uuid id_usuario FK
         uuid id_empresa FK
         varchar nombre_completo
     }
@@ -349,7 +539,6 @@ erDiagram
         uuid id_talento FK
         varchar nivel_educacional
         varchar carrera
-        varchar institucion
     }
     ANTECEDENTES_LABORALES {
         uuid id_laboral PK
@@ -403,8 +592,8 @@ erDiagram
     TALENTOS ||--o{ PERFECCIONAMIENTO : "tiene"
     TALENTOS ||--o{ TALENTO_COMPETENCIA : "tiene"
     TALENTOS ||--o{ TALENTO_IDIOMA : "habla"
-    TALENTO_COMPETENCIA }o--|| COMPETENCIAS_TECNICAS : "es"
-    TALENTO_IDIOMA }o--|| IDIOMAS : "es"
+    TALENTO_COMPETENCIA }o--|| COMPETENCIAS_TECNICAS : "referencia"
+    TALENTO_IDIOMA }o--|| IDIOMAS : "referencia"
     EMPRESAS ||--o{ SOLICITUDES_TALENTO : "envía"
     TALENTOS ||--o{ SOLICITUDES_TALENTO : "recibe"
     ESTADOS_SEGUIMIENTO ||--o{ SOLICITUDES_TALENTO : "define"
@@ -414,139 +603,233 @@ erDiagram
 
 ---
 
+<br/>
+
 ## 👥 Roles del sistema
+
+<br/>
 
 ```mermaid
 graph LR
-    U([👤 Usuario]) --> R{Rol asignado}
+    U([👤 Usuario]) --> R{Rol asignado\nal registrarse}
 
-    R -->|talento| T["👤 Talento\nVecino/a de Providencia"]
-    R -->|empresa| E["🏢 Empresa\nReclutador"]
-    R -->|admin| A["🏛️ Admin\nDepto. de Empleo"]
+    R -->|talento| T["👤 Talento"]
+    R -->|empresa| E["🏢 Empresa"]
+    R -->|admin| A["🏛️ Admin"]
 
     T --> T1[✅ Crear perfil laboral]
-    T --> T2[✅ Subir CV]
+    T --> T2[✅ Subir CV y documentos]
     T --> T3[✅ Ver solicitudes recibidas]
-    T --> T4[✅ Ver estadísticas]
+    T --> T4[✅ Ver estadísticas propias]
 
-    E --> E1[✅ Buscar en vitrina]
+    E --> E1[✅ Buscar en la vitrina]
     E --> E2[✅ Ver CV ciego]
     E --> E3[✅ Solicitar contacto]
-    E --> E4[✅ Ver historial]
+    E --> E4[✅ Ver historial de solicitudes]
 
-    A --> A1[✅ Validar perfiles]
+    A --> A1[✅ Validar perfiles y cuentas]
     A --> A2[✅ Gestionar empresas]
-    A --> A3[✅ Ver estadísticas]
-    A --> A4[✅ Cambiar estados]
+    A --> A3[✅ Cambiar estados de solicitudes]
+    A --> A4[✅ Ver estadísticas generales]
 ```
 
 <br/>
 
 ---
 
+<br/>
+
 ## 🔒 Seguridad
 
+<br/>
+
 ```mermaid
-flowchart TD
-    A([📡 Petición entrante]) --> B
-
-    subgraph Capas["🛡️ Capas de Seguridad"]
-        B["🌐 CORS\nSolo frontend autorizado"]
-        B --> C["⛑️ Helmet\nHeaders HTTP seguros"]
-        C --> D["⏱️ Rate Limiting\nMáx 5 intentos / 15 min"]
-        D --> E["🔑 JWT\nToken válido requerido"]
-        E --> F["🎭 Roles\nAcceso según permisos"]
-        F --> G["✅ Validación de datos\nSanitización de inputs"]
-    end
-
-    G --> H([✅ Petición procesada])
+flowchart LR
+    A([📡 Request]) --> B["🌐 CORS\nSolo frontend autorizado"]
+    B --> C["⛑️ Helmet\nHeaders HTTP seguros"]
+    C --> D["⏱️ Rate Limit\nMáx. 100 req / 15 min"]
+    D --> E["🔑 JWT\nToken válido requerido"]
+    E --> F["🎭 Roles\nAcceso según permisos"]
+    F --> G["✅ Validación\ny Sanitización"]
+    G --> H([✅ Procesada])
 ```
 
+<br/>
+
 <div align="center">
-
-| Medida | Descripción |
-|:------:|:-----------|
-| 🔐 **bcrypt** | Contraseñas cifradas, nunca en texto plano |
-| 🎫 **JWT** | Token de acceso con expiración configurable |
-| 🚦 **Rate Limit** | Máximo 5 intentos de login cada 15 minutos |
-| 👁️ **CV Ciego** | Datos personales nunca visibles para empresas |
-| 🌐 **CORS** | Solo el frontend autorizado puede conectarse |
-| ⛑️ **Helmet** | Headers de seguridad HTTP automáticos |
-
+<table>
+<tr>
+  <th align="center">Medida</th>
+  <th align="left">Descripción</th>
+</tr>
+<tr>
+  <td align="center">🔐 <strong>bcrypt</strong></td>
+  <td>Contraseñas cifradas con salt, nunca en texto plano</td>
+</tr>
+<tr>
+  <td align="center">🎫 <strong>JWT</strong></td>
+  <td>Token de acceso con expiración de 24 horas</td>
+</tr>
+<tr>
+  <td align="center">🚦 <strong>Rate Limit</strong></td>
+  <td>Máximo 100 peticiones cada 15 minutos por IP</td>
+</tr>
+<tr>
+  <td align="center">👁️ <strong>CV Ciego</strong></td>
+  <td>Nombre, edad, género y comuna nunca visibles para empresas</td>
+</tr>
+<tr>
+  <td align="center">🌐 <strong>CORS</strong></td>
+  <td>Solo el frontend autorizado puede conectarse al backend</td>
+</tr>
+<tr>
+  <td align="center">⛑️ <strong>Helmet</strong></td>
+  <td>Headers de seguridad HTTP configurados automáticamente</td>
+</tr>
+<tr>
+  <td align="center">🔍 <strong>ESLint Security</strong></td>
+  <td>Análisis estático de código para detectar vulnerabilidades</td>
+</tr>
+</table>
 </div>
 
 <br/>
 
 ---
 
+<br/>
+
 ## 🧪 Pruebas
 
+<br/>
+
 ```bash
-# Pruebas unitarias (sin base de datos)
+# Pruebas unitarias — no requieren base de datos
 npm run test:unit
 
-# Pruebas de integración (requiere BD activa)
+# Pruebas de integración — requieren BD activa
 npm run test:integration
 
 # Todas las pruebas
 npm test
 ```
 
+<br/>
+
 <div align="center">
-
-| Tipo | Cobertura | Resultado |
-|:----:|:---------:|:---------:|
-| 🧩 **Unitarias** | 6 módulos | ✅ **47 pruebas pasando** |
-| 🔗 **Integración** | 7 archivos | ✅ Todos los módulos |
-
+<table>
+<tr>
+  <th align="center">Tipo</th>
+  <th align="center">Módulos cubiertos</th>
+  <th align="center">Resultado</th>
+</tr>
+<tr>
+  <td align="center">🧩 <strong>Unitarias</strong></td>
+  <td align="center">AuthService · EmpresaService · TalentoService<br/>VitrinaService · SolicitudService · PerfeccionamientoService</td>
+  <td align="center">✅ <strong>47 / 47 pasando</strong></td>
+</tr>
+<tr>
+  <td align="center">🔗 <strong>Integración</strong></td>
+  <td align="center">7 archivos · Todos los módulos principales</td>
+  <td align="center">✅ Cubiertos</td>
+</tr>
+</table>
 </div>
 
 <br/>
 
 ---
+
+<br/>
 
 ## 📚 Documentación
 
+<br/>
+
 <div align="center">
-
-| 📄 Documento | 📝 Descripción |
-|:------------:|:--------------|
-| [📘 Documentación Backend](docs/ProviEmplea_Documentacion_Backend.docx) | Arquitectura, endpoints, seguridad y pruebas |
-| [📗 Documentación Base de Datos](docs/Documentacion_Base_de_Datos.docx) | Modelo de datos, vistas SQL y stored procedures |
-| [📜 Script SQL](docs/script_bd_proviemplea.sql) | Script completo de creación de la base de datos |
-
+<table>
+<tr>
+  <th align="center">Documento</th>
+  <th align="left">Descripción</th>
+</tr>
+<tr>
+  <td align="center">📘 <a href="docs/ProviEmplea_Documentacion_Backend.docx"><strong>Documentación Backend</strong></a></td>
+  <td>Arquitectura, módulos, endpoints, seguridad y pruebas</td>
+</tr>
+<tr>
+  <td align="center">📗 <a href="docs/Documentacion_Base_de_Datos.docx"><strong>Documentación Base de Datos</strong></a></td>
+  <td>Modelo de datos, índices, vistas SQL y stored procedures</td>
+</tr>
+<tr>
+  <td align="center">📜 <a href="docs/script_bd_proviemplea.sql"><strong>Script SQL</strong></a></td>
+  <td>Script completo de creación de la base de datos PostgreSQL</td>
+</tr>
+</table>
 </div>
 
 <br/>
 
 ---
+
+<br/>
 
 ## 👨‍💻 Equipo
 
+<br/>
+
 <div align="center">
-
-| Nombre | Rol | Responsabilidad |
-|:------:|:---:|:---------------|
-| **Greudy Inoa** | 🖥️ Backend | API REST, autenticación, lógica de negocio y pruebas |
-| **Nicol Orellana** | 🎨 Frontend | Interfaz de usuario en React |
-| **Camila Loreto Rojo** | 🗄️ Base de Datos | Modelo de datos, vistas SQL y stored procedures |
-
+<table>
+<tr>
+  <td align="center" width="33%">
+    <br/>
+    <h3>Greudy Inoa</h3>
+    <p>🖥️ <strong>Backend Developer</strong></p>
+    <p><em>API REST · Autenticación · Lógica de negocio · Pruebas · Swagger</em></p>
+  </td>
+  <td align="center" width="33%">
+    <br/>
+    <h3>Nicol Orellana</h3>
+    <p>🎨 <strong>Frontend Developer</strong></p>
+    <p><em>Interfaz de usuario en React · Consumo de la API</em></p>
+  </td>
+  <td align="center" width="33%">
+    <br/>
+    <h3>Camila Loreto Rojo</h3>
+    <p>🗄️ <strong>Base de Datos</strong></p>
+    <p><em>Modelo de datos · Vistas SQL · Stored Procedures</em></p>
+  </td>
+</tr>
+</table>
 </div>
 
 <br/>
 
 ---
+
+<br/>
 
 ## 🏛️ Cliente
 
+<br/>
+
 <div align="center">
 
-**Departamento de Empleo — Municipalidad de Providencia**
+<h3>Departamento de Empleo<br/>Municipalidad de Providencia</h3>
 
-| | |
-|:---:|:---|
-| 👤 Representantes | Solange Montaldo y Cecilia Ahumada |
-| 📧 Contacto | solange.montaldo@providencia.cl |
+<table>
+<tr>
+  <td align="center">👤 <strong>Representantes</strong></td>
+  <td>Solange Montaldo Romero · Cecilia Ahumada Vásquez</td>
+</tr>
+<tr>
+  <td align="center">📧 <strong>Contacto</strong></td>
+  <td>solange.montaldo@providencia.cl · cecilia.ahumada@providencia.cl</td>
+</tr>
+<tr>
+  <td align="center">📅 <strong>Período</strong></td>
+  <td>Mayo — Agosto 2026</td>
+</tr>
+</table>
 
 </div>
 
@@ -555,5 +838,7 @@ npm test
 ---
 
 <div align="center">
+  <br/>
   <sub>Desarrollado con ❤️ para la Municipalidad de Providencia — 2026</sub>
+  <br/><br/>
 </div>
