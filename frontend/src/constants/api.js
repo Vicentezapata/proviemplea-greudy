@@ -34,7 +34,7 @@ export const ESTADOS_SOLICITUD = {
 export const JORNADAS = [
     { value: 'completa', label: 'Jornada completa' },
     { value: 'parcial', label: 'Media jornada' },
-    { value: 'por_horas', label: 'Por horas' },
+    { value: 'por_horas', label: 'Por turnos' },
     { value: 'cualquiera', label: 'Sin preferencia' },
 ];
 
