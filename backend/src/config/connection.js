@@ -1,7 +1,6 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
 
-// Creo la conexión a PostgreSQL usando las variables de entorno
+// Las variables de entorno ya fueron cargadas por dotenvx en server.js
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
