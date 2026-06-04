@@ -1,4 +1,4 @@
-const Page = () => <div className='p-8'>En construcción</div>; export default Page;
+
 // =============================================
 // PROVIEMPLEA - PÁGINA 500
 // archivo: src/pages/ServerError.jsx
