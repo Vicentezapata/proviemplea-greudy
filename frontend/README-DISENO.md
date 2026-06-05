@@ -1,61 +1,77 @@
-# ProviEmplea — Guía de Diseño Frontend
+<div align="center">
 
-**Documentación de diseño UI/UX de la plataforma ProviEmplea**  
-Municipalidad de Providencia — OMIL Municipal  
-Instituto Profesional San Sebastián, 2026
+<img src="public/images/logo-proviemplea.png" alt="ProviEmplea Logo" width="180"/>
 
----
+# ProviEmplea — Guía de Diseño UI/UX
 
-## Principios de diseño
+### Sistema de Diseño Institucional · Municipalidad de Providencia
 
-El diseño de ProviEmplea sigue cuatro principios fundamentales que guiaron cada decisión visual y de experiencia de usuario:
+[![Figma](https://img.shields.io/badge/Design-Institucional-4D9FC1?style=for-the-badge&logo=figma&logoColor=white)](.)
+[![WCAG](https://img.shields.io/badge/WCAG-2.1_AA-00A86B?style=for-the-badge&logo=w3c&logoColor=white)](https://www.w3.org/WAI/WCAG21/quickref/)
+[![Tailwind](https://img.shields.io/badge/Tailwind-v3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Responsive](https://img.shields.io/badge/Responsive-Mobile_First-0F243E?style=for-the-badge&logo=google-chrome&logoColor=white)](.)
 
-1. **Institucional** — El sistema representa a la Municipalidad de Providencia. Cada elemento visual refleja seriedad, confianza y carácter público.
-2. **Inclusivo** — Diseñado para ser accesible para todos los vecinos, independiente de edad, capacidad visual o nivel de manejo tecnológico. Cumple WCAG 2.1 AA.
-3. **Claro** — La información se presenta de forma directa y sin ambigüedades. El vecino siempre sabe en qué paso está y qué debe hacer.
-4. **Responsivo** — Funciona correctamente en computadores de escritorio, tablets y dispositivos móviles.
+</div>
 
 ---
 
-## Identidad visual
+## 🎯 Principios de diseño
 
-### Paleta de colores
+El diseño de ProviEmplea se rige por cuatro pilares que guiaron cada decisión visual y de experiencia de usuario:
 
-La paleta fue definida a partir de la identidad visual oficial de la Municipalidad de Providencia.
-
-| Nombre | Hex | Uso principal |
-|--------|-----|---------------|
-| **Azul Providencia** | `#4D9FC1` | Botones primarios, links activos, íconos de acción, badges |
-| **Azul Institucional** | `#0F243E` | Navbar, sidebar, headers de secciones, textos principales |
-| **Fondo claro** | `#F8FAFC` | Fondo general de la aplicación |
-| **Blanco** | `#FFFFFF` | Cards, modales, formularios |
-| **Texto principal** | `#0F243E` | Títulos y textos importantes |
-| **Texto secundario** | `#475569` | Texto de párrafos y descripciones |
-| **Texto suave** | `#94a3b8` | Placeholders, etiquetas secundarias |
-| **Borde** | `#e2e8f0` | Bordes de inputs y cards |
-| **Verde éxito** | `#22C55E` | Estados aprobados, validaciones exitosas |
-| **Amarillo advertencia** | `#F59E0B` | Pendientes, alertas informativas |
-| **Rojo error** | `#EF4444` | Estados rechazados, errores de formulario |
-| **Índigo** | `#6366f1` | Elementos secundarios, procesos en curso |
-
-### Uso del color en estados
-
-Los estados del proceso de selección tienen colores consistentes en toda la aplicación:
-
-| Estado | Color | Clase Tailwind |
-|--------|-------|----------------|
-| Solicitado | Azul | `bg-blue-100 text-blue-800` |
-| Contactado | Amarillo | `bg-yellow-100 text-yellow-800` |
-| Entrevista | Morado | `bg-purple-100 text-purple-800` |
-| Seleccionado | Verde | `bg-green-100 text-green-800` |
-| No seleccionado | Rojo | `bg-red-100 text-red-800` |
-| Cerrado | Gris | `bg-slate-100 text-slate-600` |
+```
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│  🏛️ INSTITUCIONAL │  │  ♿ INCLUSIVO    │  │  💡 CLARO        │  │  📱 RESPONSIVO   │
+│                 │  │                 │  │                 │  │                 │
+│ Representa a la │  │ Accesible para  │  │ El vecino sabe  │  │ Funciona en     │
+│ Municipalidad   │  │ todos los       │  │ siempre qué     │  │ móvil, tablet   │
+│ de Providencia  │  │ vecinos         │  │ debe hacer      │  │ y desktop       │
+└─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘
+```
 
 ---
 
-## Tipografía
+## 🎨 Paleta de colores
 
-El sistema usa dos familias tipográficas de Google Fonts:
+### Colores principales
+
+| Muestra | Nombre | Hex | Uso |
+|---------|--------|-----|-----|
+| 🔵 | **Azul Providencia** | `#4D9FC1` | Botones primarios, links activos, badges, íconos de acción |
+| 🌑 | **Azul Institucional** | `#0F243E` | Navbar, sidebar, headers, textos principales |
+| ⬜ | **Fondo claro** | `#F8FAFC` | Background general de la aplicación |
+| 🟦 | **Blanco** | `#FFFFFF` | Cards, modales, formularios |
+
+### Colores de estado
+
+| Muestra | Nombre | Hex | Clase Tailwind | Uso |
+|---------|--------|-----|----------------|-----|
+| 🟢 | **Éxito** | `#22C55E` | `text-green-600` | Aprobados, validaciones exitosas |
+| 🟡 | **Advertencia** | `#F59E0B` | `text-yellow-600` | Pendientes, alertas informativas |
+| 🔴 | **Error** | `#EF4444` | `text-red-600` | Rechazados, errores de formulario |
+| 🟣 | **Proceso** | `#8B5CF6` | `text-purple-600` | Entrevistas, procesos en curso |
+| 🔷 | **Info** | `#3B82F6` | `text-blue-600` | Información general, solicitado |
+| ⚫ | **Cerrado** | `#94a3b8` | `text-slate-400` | Procesos cerrados, inactivos |
+
+### Estados de solicitud
+
+```javascript
+// src/constants/api.js
+ESTADOS_SOLICITUD = {
+  1: { label: 'Solicitado',      color: 'bg-blue-100 text-blue-800'   },
+  2: { label: 'Contactado',      color: 'bg-yellow-100 text-yellow-800'},
+  3: { label: 'Entrevista',      color: 'bg-purple-100 text-purple-800'},
+  4: { label: 'Seleccionado',    color: 'bg-green-100 text-green-800'  },
+  5: { label: 'No seleccionado', color: 'bg-red-100 text-red-800'      },
+  6: { label: 'Cerrado',         color: 'bg-slate-100 text-slate-600'  },
+}
+```
+
+---
+
+## 🔤 Tipografía
+
+El sistema usa dos familias de Google Fonts:
 
 | Familia | Uso | Pesos |
 |---------|-----|-------|
@@ -66,67 +82,90 @@ El sistema usa dos familias tipográficas de Google Fonts:
 
 | Clase Tailwind | Tamaño | Uso |
 |----------------|--------|-----|
-| `text-2xl font-black` | 24px | Títulos de página (H1) |
-| `text-lg font-bold` | 18px | Subtítulos de sección (H2) |
+| `text-2xl font-black` | 24px | Títulos de página H1 |
+| `text-lg font-bold` | 18px | Subtítulos de sección H2 |
 | `text-sm font-bold` | 14px | Títulos de card |
 | `text-sm` | 14px | Texto de párrafo |
 | `text-xs font-semibold` | 12px | Labels y etiquetas |
-| `text-[10px] font-black` | 10px | Badges, categorías, uppercase |
-| `text-3xl font-black` | 30px | Valores de KPI en dashboard |
+| `text-[10px] font-black uppercase` | 10px | Badges, categorías |
+| `text-3xl font-black` | 30px | Valores KPI en dashboards |
 
 ---
 
-## Sistema de componentes
+## 📐 Layout del sistema
 
-### Layout del portal autenticado
-
-Todas las páginas autenticadas comparten el mismo layout de tres zonas:
+### Estructura de páginas autenticadas
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                      NAVBAR (h-16)                      │
-│  Logo | Mensajes | Notificaciones | Usuario | Rol       │
-├──────────────────┬──────────────────────────────────────┤
-│                  │                                      │
-│   SIDEBAR        │         CONTENIDO PRINCIPAL          │
-│   (w-60)         │         (flex-1)                     │
-│                  │                                      │
-│   Portal label   │   Header de página                   │
-│   Links por rol  │   Cards / Tablas / Formularios       │
-│   Badges         │                                      │
-│                  │                                      │
-└──────────────────┴──────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│                    NAVBAR  h-16  sticky top-0                    │
+│  🏛️ Logo ProviEmplea    💬 Mensajes  🔔 Notificaciones  👤 Usuario│
+├───────────────────┬──────────────────────────────────────────────┤
+│                   │                                              │
+│   SIDEBAR  w-60   │           CONTENIDO PRINCIPAL               │
+│   sticky top-24   │           flex-1  space-y-6                 │
+│                   │                                              │
+│  PORTAL VECINOS   │   ┌──────────────────────────────────────┐  │
+│  ─────────────    │   │  Header de página                    │  │
+│  🏠 Dashboard     │   │  h1 text-2xl font-black              │  │
+│  👤 Mi Perfil     │   └──────────────────────────────────────┘  │
+│  👁️ CV Ciego      │                                              │
+│  📥 Solicitudes   │   ┌────────┐ ┌────────┐ ┌────────┐ ┌──────┐ │
+│  🕐 Historial     │   │  KPI  │ │  KPI  │ │  KPI  │ │ KPI  │ │
+│  📁 Archivos      │   └────────┘ └────────┘ └────────┘ └──────┘ │
+│  💬 Mensajes  2   │                                              │
+│  ⚙️ Completar     │   ┌──────────────────────────────────────┐  │
+│  ❓ Ayuda         │   │  Cards / Tablas / Formularios        │  │
+│                   │   └──────────────────────────────────────┘  │
+└───────────────────┴──────────────────────────────────────────────┘
 ```
+
+### Contenedor máximo
+
+```css
+max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8
+```
+
+---
+
+## 🧩 Sistema de componentes
 
 ### Navbar
 
-- Fondo: `#0F243E` (azul institucional)
-- Altura fija: `h-16` (64px)
-- Posición: `sticky top-0 z-50`
-- Contenido: logo (izquierda) + acciones (derecha)
-- Las acciones incluyen: ícono mensajes con contador, ícono notificaciones con contador, separador, avatar + nombre + rol + menú desplegable
+```
+Fondo:     #0F243E  (azul institucional)
+Altura:    h-16 (64px)  
+Posición:  sticky top-0 z-50
+```
+
+**Contenido:**
+- **Izquierda:** Logo ProviEmplea → lleva al landing
+- **Derecha:** Ícono mensajes (con contador) + Ícono notificaciones (con contador) + separador + Avatar + nombre + rol + menú desplegable
 
 ### Sidebar
 
-- Fondo: `#0F243E` (mismo que navbar para coherencia visual)
-- Ancho: `w-60` (240px)
-- Posición: `sticky top-24` (se mantiene al hacer scroll)
-- Solo visible en pantallas `lg` (1024px+)
-- Links inactivos: texto `#94a3b8`
-- Link activo: fondo `#4D9FC1`, texto blanco
-- Hover: texto blanco con transición suave
-- Etiqueta del módulo: texto `#4D9FC1` uppercase
+```
+Fondo:     #0F243E  (mismo que navbar — coherencia institucional)
+Ancho:     w-60 (240px)
+Posición:  sticky top-24
+Visibilidad: hidden lg:flex (oculto en móvil)
+```
+
+**Estados de links:**
+
+| Estado | Fondo | Color texto |
+|--------|-------|-------------|
+| Inactivo | `transparent` | `#94a3b8` |
+| Hover | `transparent` | `white` |
+| Activo | `#4D9FC1` | `white` |
 
 ### Cards
 
-Todas las cards del sistema siguen el mismo patrón base:
-
-```
+```css
+/* Card base */
 bg-white rounded-2xl border border-slate-100 shadow-sm p-5
-```
 
-Las cards interactivas (clicables) agregan:
-```
+/* Card interactiva */
 hover:shadow-md transition-all hover:-translate-y-0.5
 ```
 
@@ -135,10 +174,10 @@ hover:shadow-md transition-all hover:-translate-y-0.5
 | Tipo | Estilos |
 |------|---------|
 | **Primario** | `bg-[#4D9FC1] text-white rounded-xl font-bold hover:opacity-90` |
-| **Secundario** | `border-2 border-[#4D9FC1] text-[#4D9FC1] rounded-xl font-semibold hover:bg-slate-50` |
+| **Secundario** | `border-2 border-[#4D9FC1] text-[#4D9FC1] rounded-xl hover:bg-slate-50` |
 | **Peligro** | `bg-red-500 text-white rounded-xl font-bold hover:opacity-90` |
 | **Institucional** | `bg-[#0F243E] text-white rounded-xl font-bold hover:opacity-90` |
-| **Ghost** | `border-2 border-slate-200 text-slate-600 rounded-xl font-semibold hover:bg-slate-50` |
+| **Ghost** | `border-2 border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50` |
 
 ### Inputs y formularios
 
@@ -152,187 +191,284 @@ border-color: #EF4444
 box-shadow: 0 0 0 3px rgba(239,68,68,0.1)
 ```
 
-Los formularios siempre incluyen:
-- Label con `text-sm font-semibold text-slate-700`
-- Input con estados focus, error y disabled
-- Mensaje de error en rojo con ícono `AlertCircle`
-
 ### Badges de estado
 
-Todos los badges siguen el patrón:
-```
+```css
+/* Patrón general */
 text-xs font-bold px-2.5 py-1 rounded-full
-```
 
-Con colores de fondo y texto según el estado (ver tabla de estados arriba).
+/* Ejemplo aprobado */
+bg-green-100 text-green-800
+
+/* Ejemplo pendiente */
+bg-yellow-100 text-yellow-800
+```
 
 ---
 
-## Páginas por módulo
+## 📱 Diseño responsivo
+
+| Breakpoint | Ancho | Adaptaciones |
+|------------|-------|--------------|
+| `sm` | 640px | Grids 2 columnas, formularios adaptados |
+| `md` | 768px | Navbar elementos visibles |
+| `lg` | 1024px | Sidebar visible, grids 3-4 columnas |
+| `xl` | 1280px | Contenido centrado `max-w-7xl` |
+
+### Adaptaciones móviles específicas
+
+```
+📱 Sidebar      → hidden lg:flex — menú hamburguesa en navbar
+📱 Mensajes     → lista/detalle con toggle — una vista a la vez
+📱 KPIs grid    → grid-cols-2 lg:grid-cols-4
+📱 Tablas       → columnas se ocultan para mantener legibilidad
+```
+
+---
+
+## 🖥️ Páginas por módulo
 
 ### Páginas públicas
 
 | Página | Ruta | Descripción |
 |--------|------|-------------|
-| Landing | `/` | Hero con imagen costanera, métricas, carrusel ferias, alianzas, CV Ciego, beneficios, FAQ, footer |
-| Login | `/login` | Panel decorativo izquierdo + formulario con validación |
-| Registro Vecino | `/registro/talento` | Formulario de registro con validación de RUT |
-| Registro Empresa | `/registro/empresa` | Formulario de registro empresarial |
-| Recuperar Password | `/recuperar-password` | Solicitud de reset por correo |
+| 🏠 Landing | `/` | Hero costanera, métricas, carrusel ferias, CV Ciego, FAQ, footer |
+| 🔑 Login | `/login` | Panel decorativo izq + formulario con validación |
+| 📝 Registro Vecino | `/registro/talento` | Formulario con validación RUT |
+| 🏢 Registro Empresa | `/registro/empresa` | Formulario registro empresarial |
+| 🔒 Recuperar Password | `/recuperar-password` | Reset por correo |
 
-### Portal Vecinos (id_rol = 2)
+### 🏠 Portal Vecinos `id_rol = 2`
 
-| Página | Ruta | Descripción |
-|--------|------|-------------|
-| Dashboard | `/talento/dashboard` | KPIs, banner validación, accesos rápidos |
-| Mi Perfil | `/talento/perfil` | Barra completitud, resumen, educación, experiencia, competencias |
-| Completar Perfil | `/talento/completar-perfil` | Stepper 5 pasos |
-| CV Ciego | `/talento/cv-ciego` | Vista sin datos personales + nota privacidad |
-| Mis Solicitudes | `/talento/solicitudes` | Empresas interesadas con estados |
-| Historial | `/talento/historial` | Timeline visual de procesos |
-| Mis Archivos | `/talento/archivos` | Drag & drop de documentos |
-| Validación Cuenta | `/talento/validacion` | Estado del proceso de validación |
-| Mensajes | `/talento/mensajes` | Bandeja institucional con OMIL |
+| Página | Ruta | Highlights de diseño |
+|--------|------|---------------------|
+| Dashboard | `/talento/dashboard` | KPIs, banner validación amarillo, accesos rápidos |
+| Mi Perfil | `/talento/perfil` | Barra de completitud animada |
+| Completar Perfil | `/talento/completar-perfil` | Stepper 5 pasos con íconos |
+| CV Ciego | `/talento/cv-ciego` | Header gradiente, datos protegidos en rojo |
+| Mis Solicitudes | `/talento/solicitudes` | Filtros por estado, badges coloridos |
+| Historial | `/talento/historial` | Timeline visual con línea vertical |
+| Mis Archivos | `/talento/archivos` | Drag & drop con zona animada |
+| Mensajes | `/talento/mensajes` | Lista izq + detalle der, estilo institucional |
 | Ayuda | `/talento/ayuda` | FAQ por categorías + contacto OMIL |
 
-### Portal Empresas (id_rol = 3)
+### 🏢 Portal Empresas `id_rol = 3`
 
-| Página | Ruta | Descripción |
-|--------|------|-------------|
-| Dashboard | `/empresa/dashboard` | KPIs, solicitudes recientes, accesos |
-| Perfil Empresa | `/empresa/perfil` | Edición de datos empresariales |
-| Vitrina | `/empresa/vitrina` | CV Ciego de talentos con búsqueda y filtros |
-| Detalle Talento | `/empresa/talento/:id` | CV Ciego individual + solicitar contacto |
-| Seguimiento | `/empresa/seguimiento` | Estado de candidatos por etapa |
-| Historial | `/empresa/historial` | Tabla historial de solicitudes |
-| Mensajes | `/empresa/mensajes` | Bandeja institucional con OMIL |
+| Página | Ruta | Highlights de diseño |
+|--------|------|---------------------|
+| Dashboard | `/empresa/dashboard` | KPIs, solicitudes recientes |
+| Vitrina | `/empresa/vitrina` | Búsqueda + filtros + grid CV Ciego |
+| Detalle Talento | `/empresa/talento/:id` | CV Ciego con header gradiente |
+| Seguimiento | `/empresa/seguimiento` | Contadores por estado + lista |
+| Mensajes | `/empresa/mensajes` | Bandeja institucional empresa-OMIL |
 
-### Mesa Control OMIL (id_rol = 1)
+### 🏛️ Mesa Control OMIL `id_rol = 1`
 
-| Página | Ruta | Descripción |
-|--------|------|-------------|
-| Dashboard | `/admin/dashboard` | KPIs sistema, pendientes validación |
-| Gestión Talentos | `/admin/talentos` | Tabla con aprobar/rechazar |
-| Ficha Fiscalización | `/admin/talentos/:id` | Ficha completa con documentos y validación |
-| Gestión Empresas | `/admin/empresas` | Lista de empresas registradas |
-| Detalle Empresa | `/admin/empresas/:id` | Información y actividad de la empresa |
-| Solicitudes | `/admin/solicitudes` | Cambio de estados del proceso |
-| Envío Talentos | `/admin/envio-talentos` | Envío manual de perfiles a empresas |
-| Seguimiento | `/admin/seguimiento` | Monitor de procesos activos |
-| Estadísticas | `/admin/estadisticas` | KPIs + barras progreso + Ley 21.015 |
-| Exportación | `/admin/exportacion` | Descarga de reportes por formato |
-| Mensajes | `/admin/mensajes` | Bandeja OMIL con vecinos y empresas |
+| Página | Ruta | Highlights de diseño |
+|--------|------|---------------------|
+| Dashboard | `/admin/dashboard` | 6 KPIs, pendientes de validación |
+| Ficha Fiscalización | `/admin/talentos/:id` | Header institucional oscuro, documentos |
+| Solicitudes | `/admin/solicitudes` | Select inline para cambio de estado |
+| Estadísticas | `/admin/estadisticas` | Barras de progreso + Ley 21.015 |
+| Exportación | `/admin/exportacion` | Cards con botones por formato |
+| Mensajes OMIL | `/admin/mensajes` | Bandeja con filtros por tipo |
 
 ---
 
-## Accesibilidad WCAG 2.1
-
-El sistema cumple con los criterios de accesibilidad WCAG 2.1 nivel AA mediante:
+## ♿ Accesibilidad WCAG 2.1 AA
 
 ### Widget flotante de accesibilidad
 
-Botón flotante en esquina inferior derecha disponible en todas las páginas. Permite al usuario:
+Botón flotante en esquina inferior derecha con animación `pulse` en azul institucional:
 
-| Función | Descripción |
-|---------|-------------|
-| Tamaño de texto | Aumentar o disminuir el tamaño base de fuente |
-| Fuente dislexia | Activa OpenDyslexic para mejorar la lectura |
-| Resaltar enlaces | Subraya y resalta todos los enlaces de la página |
-| Lector de voz | Síntesis de voz del texto seleccionado |
-| Cursor gigante | Aumenta el tamaño del puntero del mouse |
+```
+┌─────────────────────────────────────┐
+│  ♿ Opciones de accesibilidad        │
+│                                     │
+│  Aa  Tamaño de texto    [- A A +]   │
+│  𝔻   Fuente dislexia    [ON/OFF]    │
+│  🔗  Resaltar enlaces   [ON/OFF]    │
+│  🔊  Lector de voz      [ON/OFF]    │
+│  🖱️  Cursor gigante     [ON/OFF]    │
+└─────────────────────────────────────┘
+```
 
-### Buenas prácticas implementadas
-
-- Todos los elementos interactivos tienen `aria-label` descriptivo
-- Formularios con `aria-invalid` y `aria-describedby` en errores
-- Navegación con `aria-current="page"` en el link activo
-- Contraste de colores superior a 4.5:1 en texto sobre fondos
-- Todos los íconos decorativos tienen `aria-hidden="true"`
-- Estructura semántica con `<nav>`, `<main>`, `<aside>` y roles ARIA
-- Elementos `role="alert"` en mensajes de error
-- Compatible con navegación por teclado
-
----
-
-## Diseño responsivo
-
-El sistema usa los breakpoints de Tailwind CSS:
-
-| Breakpoint | Ancho | Comportamiento |
-|------------|-------|----------------|
-| `sm` | 640px | Grids de 2 columnas, formularios adaptados |
-| `md` | 768px | Navbar muestra elementos ocultos en móvil |
-| `lg` | 1024px | Sidebar visible, grids de 3-4 columnas |
-| `xl` | 1280px | Contenido centrado con `max-w-7xl` |
-
-### Adaptaciones móviles
-
-- **Sidebar:** Oculto en móvil (`hidden lg:flex`). La navegación en móvil va en el menú hamburguesa del navbar.
-- **Mensajes:** Vista lista/detalle con toggle en móvil — muestra una vista a la vez.
-- **Grids KPI:** 2 columnas en móvil, 4 en desktop (`grid-cols-2 lg:grid-cols-4`).
-- **Tablas:** En móvil algunas columnas se ocultan para mantener legibilidad.
-
----
-
-## Convenciones de código
-
-### Nomenclatura de componentes
-- Componentes: `PascalCase` → `DashboardTalento.jsx`
-- Hooks: `camelCase` con prefijo `use` → `useAuth.js`
-- Servicios: `camelCase` con sufijo `Service` → `talentoService`
-- Constantes: `UPPER_SNAKE_CASE` → `ROLES`, `ESTADOS_SOLICITUD`
-
-### Estructura de un componente de página
+### Implementaciones en código
 
 ```jsx
-// 1. Encabezado con descripción
-// 2. Imports de React
-// 3. Imports de componentes layout (Navbar, Sidebar)
-// 4. Imports de servicios y contexto
-// 5. Imports de íconos
-// 6. Estado local con useState
-// 7. Efectos con useEffect
-// 8. Funciones de manejo de eventos
-// 9. Return con JSX
-//    └── Navbar
-//    └── Container max-w-7xl
-//        └── flex gap-8
-//            └── Sidebar
-//            └── main (contenido)
-```
+// Navegación
+aria-label="Navegación principal"
+aria-current="page"           // Link activo
 
-### Clases Tailwind reutilizables
+// Formularios
+aria-invalid={!!errores.campo}
+aria-describedby="campo-error"
+role="alert"                  // Mensajes de error
 
-```javascript
-// Input estándar
-const inputClass = "w-full px-4 py-3 rounded-xl border border-slate-200 text-sm outline-none transition-all focus:border-[#4D9FC1] focus:ring-2 focus:ring-[#4D9FC1]/20";
+// Íconos decorativos
+aria-hidden="true"
 
-// Label estándar
-const labelClass = "text-sm font-semibold text-slate-700 block mb-1.5";
-
-// Card base
-const cardClass = "bg-white rounded-2xl border border-slate-100 shadow-sm p-6";
+// Botones
+aria-expanded={menuAbierto}
+aria-label="Cerrar menú"
 ```
 
 ---
 
-## Decisiones de diseño importantes
+## 🎭 Patrón CV Ciego
+
+El corazón del diseño de ProviEmplea:
+
+```
+┌─────────────────────────────────────────────────────┐
+│  CV Ciego  ✓ Verificado OMIL                        │  ← Header gradiente #0F243E → #4D9FC1
+│                                                     │
+│  Código oficial                                     │
+│  TALENTO PVD-2026-XXX                               │
+├─────────────────────────────────────────────────────┤
+│  🔴 Datos protegidos                                │  ← Badges rojos con candado
+│  [Nombre] [Edad] [Género] [Dirección] [Foto] [RUT]  │
+├─────────────────────────────────────────────────────┤
+│  Disponibilidad                                     │
+│  [Jornada completa] [Presencial] [🟢 Disponible]    │
+├─────────────────────────────────────────────────────┤
+│  Competencias técnicas                              │
+│  [React] [Node.js] [PostgreSQL] ...                 │
+├─────────────────────────────────────────────────────┤
+│  🔒 Privacidad garantizada — datos solo con         │
+│     autorización explícita del vecino/a             │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 💬 Sistema de mensajería
+
+Diseño institucional — NO es un chat informal:
+
+```
+┌──────────────────────┬──────────────────────────────────────────┐
+│  🔍 Buscar mensajes  │                                          │
+├──────────────────────┤   📋 Asunto del mensaje                  │
+│  [Todos] [Validación]│   OMIL Providencia                       │
+│  [Solicitudes]...    │                                          │
+├──────────────────────┤   ┌────────────────────────────────┐     │
+│  📋 OMIL Providencia │   │ OMIL Providencia  09:15        │     │
+│  Validación...  Hoy  │   │ Mensaje institucional...       │     │
+│  ● Sin leer          │   └────────────────────────────────┘     │
+│                      │                      ┌──────────────┐    │
+│  📋 Sistema          │                      │ Tú  09:30    │    │
+│  Perfil incompleto   │                      │ Respuesta... │    │
+└──────────────────────┴──────────────────────┴──────────────┴────┘
+```
+
+---
+
+## 🔔 Panel de notificaciones
+
+Dropdown dinámico por rol con hasta 5 notificaciones recientes:
+
+```
+┌────────────────────────────────────────┐
+│  Notificaciones          3 sin leer    │
+│  [Marcar todas como leídas]            │
+├────────────────────────────────────────┤
+│  ⚠️  Cuenta pendiente de validación    │  ← warning (amarillo)
+│      La OMIL está revisando...         │
+│      Hace 2 horas    [Ver estado →]    │
+├────────────────────────────────────────┤
+│  ℹ️  Perfil incompleto                 │  ← info (azul)
+│      Completa tu experiencia...        │
+│      Hace 5 horas    [Completar →]     │
+├────────────────────────────────────────┤
+│  ✅  Nueva empresa interesada          │  ← success (verde)
+│      Una empresa solicitó...           │
+│      Ayer             [Ver solicitud →]│
+└────────────────────────────────────────┘
+```
+
+---
+
+## ⚙️ Decisiones de diseño
+
+### ¿Por qué diseño claro y no oscuro?
+
+Los estándares **Government Digital Services** (Gov.uk, Canada Digital) recomiendan fondos claros para plataformas gubernamentales ya que:
+- Mayor legibilidad para adultos mayores
+- Mejor contraste en condiciones de luz variada
+- Percepción de confianza e institucionalidad
+- Cumplimiento WCAG 2.1 AA más sencillo
+
+### ¿Por qué sidebar y navbar del mismo color?
+
+El color `#0F243E` en ambos elementos crea una **barra lateral que se siente como parte del sistema institucional**, no como un elemento genérico. Genera unidad visual y refuerza la identidad de la Municipalidad de Providencia.
+
+### ¿Por qué `style={{}}` en lugar de clases Tailwind para colores?
+
+Los colores `#4D9FC1` y `#0F243E` son personalizados. En contextos de colores **condicionales y dinámicos** (activo/inactivo, por ejemplo), usar `style={{}}` garantiza que el color se aplique correctamente sin depender del purge de Tailwind, que podría eliminar clases dinámicas no detectadas en build.
 
 ### ¿Por qué Tailwind v3 y no v4?
-Se usó Tailwind CSS v3 en lugar de v4 porque la versión 4 presentó incompatibilidades con Vite 6 y React 19 al momento del desarrollo, causando que los estilos no se aplicaran correctamente. Tailwind v3 es estable y ampliamente documentado.
 
-### ¿Por qué el sidebar tiene el mismo color que el navbar?
-Para crear coherencia visual institucional. El color `#0F243E` representa la identidad oficial de la Municipalidad de Providencia. Tener navbar y sidebar del mismo color genera una barra lateral que se siente como parte del sistema institucional, no como un elemento genérico.
-
-### ¿Por qué los colores se aplican con `style={}` y no con clases Tailwind?
-Los colores institucionales (`#4D9FC1` y `#0F243E`) son valores personalizados que no están en la paleta base de Tailwind. Aunque están configurados en `tailwind.config.js`, en algunos contextos dinámicos (como colores condicionales) es más seguro aplicarlos con `style={{}}` para garantizar que se apliquen correctamente sin depender del purge de Tailwind.
+Tailwind CSS v4 presentó incompatibilidades con Vite 6 y React 19 al momento del desarrollo. Tailwind v3 es estable, ampliamente documentado y compatible con todo el stack.
 
 ### ¿Por qué lazy loading en todas las páginas?
-Con `React.lazy()` y `Suspense`, las páginas se cargan solo cuando el usuario las visita. Esto reduce el bundle inicial y mejora el tiempo de carga de la aplicación, especialmente importante considerando que hay más de 30 páginas en el sistema.
+
+Con más de 30 páginas en el sistema, `React.lazy()` + `Suspense` reduce el bundle inicial significativamente. El usuario solo descarga el código de la página que está visitando.
 
 ---
 
-## Licencia
+## 📏 Convenciones de código
 
-Proyecto académico — Instituto Profesional San Sebastián, 2026.  
-Municipalidad de Providencia — OMIL Municipal.
+### Nomenclatura
+
+```
+Componentes:   PascalCase    → DashboardTalento.jsx
+Hooks:         camelCase     → useAuth.js
+Servicios:     camelCase     → talentoService
+Constantes:    UPPER_SNAKE   → ROLES, ESTADOS_SOLICITUD
+Archivos CSS:  kebab-case    → animations.css
+```
+
+### Estructura de una página
+
+```jsx
+// 1. Encabezado descriptivo del archivo
+// 2. Imports React (useState, useEffect)
+// 3. Imports layout (Navbar, Sidebar)
+// 4. Imports servicios y contexto
+// 5. Imports íconos (lucide-react)
+// 6. Estado local
+// 7. useEffect para carga de datos
+// 8. Funciones de manejo de eventos
+// 9. Return JSX:
+//    └─ <div className="min-h-screen bg-[#F8FAFC]">
+//       └─ <Navbar />
+//       └─ <div className="max-w-7xl mx-auto...">
+//          └─ <div className="flex gap-8">
+//             └─ <Sidebar />
+//             └─ <main className="flex-1 space-y-6">
+```
+
+### Clases reutilizables
+
+```javascript
+// Usadas consistentemente en todos los formularios
+const inputClass = `w-full px-4 py-3 rounded-xl border border-slate-200 
+  text-sm outline-none transition-all focus:border-[#4D9FC1] 
+  focus:ring-2 focus:ring-[#4D9FC1]/20`;
+
+const labelClass = "text-sm font-semibold text-slate-700 block mb-1.5";
+```
+
+---
+
+<div align="center">
+
+**Sistema de diseño desarrollado para la Municipalidad de Providencia**
+
+[![Providencia](https://img.shields.io/badge/Municipalidad-Providencia-4D9FC1?style=for-the-badge)](https://www.providencia.cl)
+[![WCAG](https://img.shields.io/badge/Accesible-WCAG_2.1_AA-00A86B?style=for-the-badge)](https://www.w3.org/WAI/WCAG21/quickref/)
+
+*Instituto Profesional San Sebastián — 2026*
+
+</div>

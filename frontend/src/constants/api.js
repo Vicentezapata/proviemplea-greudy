@@ -73,3 +73,38 @@ export const TIPOS_DOCUMENTO = [
     { value: 'certificado_estudios', label: 'Certificado de estudios' },
     { value: 'otros', label: 'Otro documento' },
 ];
+
+// ==================== MENSAJES ====================
+// Servicio de mensajería institucional
+// Cuando Greudy implemente los endpoints,
+// descomentar las llamadas reales y eliminar
+// los datos hardcodeados de cada página de mensajes
+
+export const mensajesService = {
+
+    // Obtener todas las conversaciones del usuario logueado
+    getConversaciones: () =>
+        api.get('/mensajes'),
+
+    // Obtener detalle de una conversación con sus mensajes
+    getConversacion: (id) =>
+        api.get(`/mensajes/${id}`),
+
+    // Crear nueva conversación
+    crearConversacion: (datos) =>
+        api.post('/mensajes', datos),
+    // datos = { asunto, tipo, texto, id_usuario_destino }
+
+    // Responder en una conversación existente
+    responder: (id, texto) =>
+        api.post(`/mensajes/${id}/responder`, { texto }),
+
+    // Marcar conversación como leída
+    marcarLeida: (id) =>
+        api.patch(`/mensajes/${id}/leido`),
+
+    // Obtener cantidad de mensajes sin leer (para badge navbar)
+    getNoLeidos: () =>
+        api.get('/mensajes/no-leidos'),
+};
+

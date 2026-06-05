@@ -16,6 +16,25 @@ import {
     ChevronRight, Send, Paperclip, X
 } from 'lucide-react';
 
+// Aqui se implementará la lógica de carga de mensajes desde el backend usando el mensajesService
+//import { mensajesService } from '../../services/api';
+/*const [mensajes, setMensajes] = useState([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const cargar = async () => {
+    try {
+      const res = await mensajesService.getConversaciones();
+      setMensajes(res.data.data || []);
+    } catch {
+      setMensajes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  cargar();
+}, []); */
+
 // Mensajes de ejemplo
 const mensajesEjemplo = [
     {
@@ -88,6 +107,7 @@ const mensajesEjemplo = [
     },
 ];
 
+
 const tipoIcono = {
     validacion: { icon: CheckCheck, color: '#22C55E', bg: 'bg-green-100' },
     documentos: { icon: FileText, color: '#EF4444', bg: 'bg-red-100' },
@@ -145,6 +165,25 @@ const Mensajes = () => {
         setRespuesta('');
     };
 
+    //al implementar el servicio real, reemplazar la función enviarRespuesta por una llamada al endpoint de respuesta del mensajesService, y actualizar el estado con la respuesta del backend para asegurar que el mensaje se guarde correctamente en la base de datos y se refleje en la conversación.
+    /*const enviarRespuesta = async () => {
+      if (!respuesta.trim()) return;
+      try {
+        const res = await mensajesService.responder(seleccionado.id, respuesta);
+        const nuevoMsg = res.data.data;
+        setMensajes(prev => prev.map(m =>
+          m.id === seleccionado.id
+            ? { ...m, mensajes: [...m.mensajes, nuevoMsg] }
+            : m
+        ));
+        setSeleccionado(prev => ({
+          ...prev, mensajes: [...prev.mensajes, nuevoMsg]
+        }));
+        setRespuesta('');
+      } catch {
+        alert('Error al enviar mensaje.');
+      }
+    };*/
     return (
         <div className="min-h-screen bg-[#F8FAFC]">
             <Navbar />

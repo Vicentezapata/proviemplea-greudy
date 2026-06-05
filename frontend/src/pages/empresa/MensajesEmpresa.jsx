@@ -60,6 +60,48 @@ const filtros = [
     { value: 'informacion', label: 'Información' },
 ];
 
+
+/*import { mensajesService } from '../../services/api';
+
+// Reemplazo del useState hardcodeado:
+const [mensajes, setMensajes] = useState([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+  const cargar = async () => {
+    try {
+      const res = await mensajesService.getConversaciones();
+      setMensajes(res.data.data || []);
+    } catch {
+      setMensajes([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  cargar();
+}, []);
+
+// enviarRespuesta ahora hace llamada real al backend:
+const enviarRespuesta = async () => {
+  if (!respuesta.trim()) return;
+  try {
+    const res = await mensajesService.responder(seleccionado.id, respuesta);
+    const nuevoMsg = res.data.data;
+    setMensajes(prev => prev.map(m =>
+      m.id === seleccionado.id
+        ? { ...m, mensajes: [...m.mensajes, nuevoMsg] }
+        : m
+    ));
+    setSeleccionado(prev => ({
+      ...prev, mensajes: [...prev.mensajes, nuevoMsg]
+    }));
+    setRespuesta('');
+  } catch {
+    alert('Error al enviar mensaje.');
+  }
+}; */
+
+
 const MensajesEmpresa = () => {
     const [mensajes, setMensajes] = useState(mensajesEjemplo);
     const [seleccionado, setSeleccionado] = useState(mensajesEjemplo[0]);

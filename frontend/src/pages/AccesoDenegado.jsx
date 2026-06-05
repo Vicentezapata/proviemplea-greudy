@@ -1,4 +1,4 @@
-const Page = () => <div className='p-8'>En construcción</div>; export default Page;
+
 // =============================================
 // PROVIEMPLEA - ACCESO DENEGADO
 // archivo: src/pages/AccesoDenegado.jsx
