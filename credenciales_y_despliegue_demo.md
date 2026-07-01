@@ -4,7 +4,7 @@ Este documento contiene la información de acceso al entorno de demostración de
 
 ## 1. Enlaces del Entorno Demo
 
-* **Frontend (Aplicación Web):** [https://proviemplea-rosa-camilo.vercel.app](https://proviemplea-rosa-camilo.vercel.app) *(Alojado en Vercel)*
+* **Frontend (Aplicación Web):** [https://proviemplea-greudy.vercel.app](https://proviemplea-greudy.vercel.app/)] *(Alojado en Vercel)*
 * **Backend (API Rest):** [https://proviemplea-greudy.onrender.com/health](https://proviemplea-greudy.onrender.com/health) *(Alojado en Render)*
 * **Base de Datos:** MySQL *(Alojada en Clever Cloud)*
 
