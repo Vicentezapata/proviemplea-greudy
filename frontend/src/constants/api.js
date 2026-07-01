@@ -9,7 +9,7 @@
 // =============================================
 
 // URL base del backend de Greudy
-export const API_BASE_URL = 'http://localhost:3000/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 // ── Roles del sistema ──
 // Deben coincidir con los id_rol de la tabla usuarios
