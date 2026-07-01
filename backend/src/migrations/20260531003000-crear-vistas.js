@@ -13,27 +13,27 @@ module.exports = {
         t.modalidad_deseada,
         t.discapacidad_ley21015,
         (
-          SELECT json_agg(json_build_object('nivel', ae.nivel_educacional, 'carrera', ae.carrera))
+          SELECT JSON_ARRAYAGG(JSON_OBJECT('nivel', ae.nivel_educacional, 'carrera', ae.carrera))
           FROM antecedentes_educacionales ae
           WHERE ae.id_talento = t.id_talento AND ae.fecha_eliminacion IS NULL
         ) AS educacion,
         (
-          SELECT json_agg(json_build_object(
+          SELECT JSON_ARRAYAGG(JSON_OBJECT(
             'cargo', al.cargo,
             'descripcion', al.descripcion,
-            'anios', EXTRACT(YEAR FROM AGE(COALESCE(al.fecha_fin, CURRENT_DATE), al.fecha_inicio))
+            'anios', TIMESTAMPDIFF(YEAR, al.fecha_inicio, COALESCE(al.fecha_fin, CURRENT_DATE))
           ))
           FROM antecedentes_laborales al
           WHERE al.id_talento = t.id_talento AND al.fecha_eliminacion IS NULL
         ) AS experiencia_laboral,
         (
-          SELECT json_agg(ct.nombre)
+          SELECT JSON_ARRAYAGG(ct.nombre)
           FROM talento_competencia tc
           JOIN competencias_tecnicas ct ON ct.id_competencia = tc.id_competencia
           WHERE tc.id_talento = t.id_talento
         ) AS competencias,
         (
-          SELECT json_agg(json_build_object('idioma', i.nombre, 'nivel', ti.nivel_dominio))
+          SELECT JSON_ARRAYAGG(JSON_OBJECT('idioma', i.nombre, 'nivel', ti.nivel_dominio))
           FROM talento_idioma ti
           JOIN idiomas i ON i.id_idioma = ti.id_idioma
           WHERE ti.id_talento = t.id_talento
@@ -57,7 +57,7 @@ module.exports = {
         ROUND(
           (SELECT COUNT(*) FROM solicitudes_talento st
             JOIN estados_seguimiento es ON es.id_estado = st.id_estado
-            WHERE es.nombre = 'Seleccionado')::NUMERIC
+            WHERE es.nombre = 'Seleccionado')
           / NULLIF((SELECT COUNT(*) FROM solicitudes_talento), 0) * 100, 2
         ) AS tasa_conversion_pct
     `);
@@ -72,7 +72,7 @@ module.exports = {
         COUNT(DISTINCT CASE WHEN es.nombre = 'Seleccionado' THEN st.id_solicitud END) AS talentos_seleccionados,
         COUNT(DISTINCT CASE WHEN es.nombre = 'Entrevista' THEN st.id_solicitud END) AS en_entrevista,
         ROUND(
-          COUNT(DISTINCT CASE WHEN es.nombre = 'Seleccionado' THEN st.id_solicitud END)::NUMERIC
+          COUNT(DISTINCT CASE WHEN es.nombre = 'Seleccionado' THEN st.id_solicitud END)
           / NULLIF(COUNT(DISTINCT st.id_solicitud), 0) * 100, 2
         ) AS tasa_seleccion_pct,
         MAX(st.fecha_solicitud) AS ultima_solicitud
@@ -88,7 +88,7 @@ module.exports = {
       CREATE OR REPLACE VIEW vw_talentos_disponibles AS
       SELECT
         t.id_talento,
-        t.nombres || ' ' || t.apellidos AS nombre_completo,
+        CONCAT(t.nombres, ' ', t.apellidos) AS nombre_completo,
         u.correo,
         t.comuna_residencia,
         rr.descripcion AS rango_renta,

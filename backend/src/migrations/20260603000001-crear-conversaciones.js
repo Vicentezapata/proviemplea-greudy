@@ -1,31 +1,80 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.sequelize.query(`
-      CREATE TABLE conversaciones (
-        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-        tipo VARCHAR(50) NOT NULL,
-        asunto VARCHAR(255) NOT NULL,
-        id_usuario_origen UUID REFERENCES usuarios(id_usuario),
-        id_usuario_destino UUID REFERENCES usuarios(id_usuario),
-        "createdAt" TIMESTAMP DEFAULT NOW(),
-        "updatedAt" TIMESTAMP DEFAULT NOW()
-      );
+    await queryInterface.createTable('conversaciones', {
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4
+      },
+      tipo: {
+        type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      asunto: {
+        type: Sequelize.STRING(255),
+        allowNull: false
+      },
+      id_usuario_origen: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'usuarios',
+          key: 'id_usuario'
+        }
+      },
+      id_usuario_destino: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'usuarios',
+          key: 'id_usuario'
+        }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      }
+    });
 
-      CREATE TABLE mensajes (
-        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-        id_conversacion UUID REFERENCES conversaciones(id),
-        id_emisor UUID REFERENCES usuarios(id_usuario),
-        texto TEXT NOT NULL,
-        leido BOOLEAN DEFAULT FALSE,
-        "createdAt" TIMESTAMP DEFAULT NOW()
-      );
-    `);
+    await queryInterface.createTable('mensajes', {
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4
+      },
+      id_conversacion: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'conversaciones',
+          key: 'id'
+        }
+      },
+      id_emisor: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'usuarios',
+          key: 'id_usuario'
+        }
+      },
+      texto: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
+      leido: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+      }
+    });
   },
-  down: async (queryInterface) => {
-    await queryInterface.sequelize.query(`
-      DROP TABLE IF EXISTS mensajes;
-      DROP TABLE IF EXISTS conversaciones;
-    `);
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('mensajes');
+    await queryInterface.dropTable('conversaciones');
   }
 };

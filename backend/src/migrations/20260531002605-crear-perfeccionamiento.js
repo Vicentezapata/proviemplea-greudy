@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.createTable('perfeccionamiento', {
       id_perfeccionamiento: {
         type: Sequelize.UUID,
-        defaultValue: Sequelize.literal('uuid_generate_v4()'),
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       id_talento: {
