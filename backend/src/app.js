@@ -34,9 +34,12 @@ const app = express();
 
 app.use(helmet());
 
-// CORS restrictivo — solo el frontend autorizado
+// CORS - Permitimos múltiples orígenes para facilitar el despliegue en Vercel
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    // Permite cualquier origin (reflejándolo) para evitar errores de CORS en el demo
+    callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
